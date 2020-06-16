@@ -29,33 +29,40 @@ async def on_message(message):
 
     # HI
 
-    if message.content.lower() in ['hi', 'hello', 'hola']:
+    if "".join([i for i in message.content.lower() if i != " "]) in ('hi', 'hello', 'hola'):
         await message.channel.send("Hello %s!" % message.author.display_name)
 
     # SIGNUP
 
-    elif message.content.lower() == '!signup':
+    elif "".join([i for i in message.content.lower() if i != " "]).startswith('!signup'):
         embed = discord.Embed(
             title="Sign Up", description="Go to [some link] to sign up!", color=0xb134eb)
         await message.channel.send(embed=embed)
 
     # INFO
 
-    elif message.content.lower() == '!info':
+    elif "".join([i for i in message.content.lower() if i != " "]).startswith('!info'):
         embed = discord.Embed(
             title="Information", description="ThetaHacks is a high school hackathon held in the Bay Area. More information coming soon.", color=0xc0e8f9)
         await message.channel.send(embed=embed)
 
     # HELP
 
-    elif message.content.lower() == '!help':
+    elif "".join([i for i in message.content.lower() if i != " "]).startswith('!help'):
         embed = discord.Embed(
-            title="Help", description="Valid commands:\n`!signup` - Signup form link\n`!info` - ThetaHacks information\n`!help` - View valid commands\n`!stats` - See server statistics", color=0x0027ff)
+            title="Help", description="Valid commands:\n`!signup` - Signup form link\n`!info` - ThetaHacks information\n`!help` - View valid commands\n`!stats` - See server statistics\n`!rules` - See server rules", color=0x0027ff)
+        await message.channel.send(embed=embed)
+
+    # RULES
+
+    elif "".join([i for i in message.content.lower() if i != " "]).startswith('!rules'):
+        embed = discord.Embed(
+            title="Rules", description="1. Don't swear/cuss\n2. Be PG", color=0xaa00ff)
         await message.channel.send(embed=embed)
 
     # STATS
 
-    elif message.content.lower() == '!stats':
+    elif "".join([i for i in message.content.lower() if i != " "]).startswith('!stats'):
         a = {}
         a["testing"] = 0
         for member in message.author.guild.members:
@@ -75,7 +82,7 @@ async def on_message(message):
 
     # SUDO COMMANDS
 
-    elif message.content.lower().split(" ")[0] == "sudo":
+    elif message.content.lower().strip().split(" ")[0] == "sudo":
         admin = get(message.author.guild.roles, name="Admins")
         mod = get(message.author.guild.roles, name="Senior Mods")
         bot = get(message.author.guild.roles, name="ThetaHacks Bot")
