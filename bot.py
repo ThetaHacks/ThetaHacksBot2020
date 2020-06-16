@@ -16,6 +16,8 @@ client.v = 0
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
 
+    await client.change_presence(activity=discord.Game(name='Made by Andy Li'))
+
 
 @client.event
 async def on_message(message):
@@ -33,17 +35,23 @@ async def on_message(message):
     # SIGNUP
 
     elif message.content.lower() == '!signup':
-        await message.channel.send("Go to %s to sign up!" % "[some link]")
+        embed = discord.Embed(
+            title="Sign Up", description="Go to [some link] to sign up!", color=0xb134eb)
+        await message.channel.send(embed=embed)
 
     # INFO
 
     elif message.content.lower() == '!info':
-        await message.channel.send("ThetaHacks is a high school hackathon held in the Bay Area. More information coming soon.")
+        embed = discord.Embed(
+            title="Information", description="ThetaHacks is a high school hackathon held in the Bay Area. More information coming soon.", color=0xc0e8f9)
+        await message.channel.send(embed=embed)
 
     # HELP
 
     elif message.content.lower() == '!help':
-        await message.channel.send("Valid commands are: `!signup`, `!info`, `!help`, `!stats`.\nAdmin commands are: `sudo clear`, `sudo kick`, `sudo ban`")
+        embed = discord.Embed(
+            title="Help", description="Valid commands:\n`!signup` - Signup form link\n`!info` - ThetaHacks information\n`!help` - View valid commands\n`!stats` - See server statistics", color=0x0027ff)
+        await message.channel.send(embed=embed)
 
     # STATS
 
@@ -62,7 +70,7 @@ async def on_message(message):
                          "testing", "ThetaHacks Bot", "@everyone"])
 
         embed = discord.Embed(
-            title="ThetaHacks Stats", description=text, color=0x0027ff)
+            title="ThetaHacks Stats", description=text, color=0x00ff9d)
         await message.channel.send(embed=embed)
 
     # SUDO COMMANDS
@@ -84,8 +92,7 @@ async def on_message(message):
                     async for x in message.channel.history():
                         msg.append(x)
                     await message.channel.delete_messages(msg)
-
-                    await message.channel.send("`All` messages deleted by %s." % message.author.display_name)
+                    await message.channel.send("All messages deleted by %s." % message.author.display_name)
                 else:
                     try:
                         n = int(temp[2])
@@ -116,7 +123,9 @@ async def on_message(message):
                         else:
                             embed = discord.Embed(
                                 title="", description="%s was kicked by %s.\nReason: %s." % (temp[2], message.author.display_name, r), color=0xffa600)
-                            await u.send("You were kicked from the `Official ThetaHacks Server`. Reason: %s." % r)
+                            embed2 = discord.Embed(
+                                title="", description="You were kicked from the `Official ThetaHacks Server` by %s.\nReason: %s." % (message.author.display_name, r), color=0xffa600)
+                            await u.send(embed=embed2)
                             await message.author.guild.kick(user=u, reason=r)
                             await message.channel.send(embed=embed)
                     else:
@@ -125,7 +134,9 @@ async def on_message(message):
                         else:
                             embed = discord.Embed(
                                 title="", description="%s was kicked by %s.\nNo reason provided." % (temp[2], message.author.display_name), color=0xffa600)
-                            await u.send("You were kicked from the `Official ThetaHacks Server`. No reason provided.")
+                            embed2 = discord.Embed(
+                                title="", description="You were kicked from the `Official ThetaHacks Server` by %s.\nNoreason provided." % (message.author.display_name), color=0xffa600)
+                            await u.send(embed=embed2)
                             await message.author.guild.kick(user=u)
                             await message.channel.send(embed=embed)
 
@@ -144,6 +155,8 @@ async def on_message(message):
                         else:
                             embed = discord.Embed(
                                 title="", description="%s was banned by %s.\nReason: %s." % (temp[2], message.author.display_name, r), color=0xff0000)
+                            embed2 = discord.Embed(
+                                title="", description="You were banned from the `Official ThetaHacks Server` by %s. Reason: %s." % (message.author.display_name, r), color=0xff0000)
                             await u.send("You were banned from the `Official ThetaHacks Server`. Reason: %s." % r)
                             await message.author.guild.ban(user=u, reason=r)
                             await message.channel.send(embed=embed)
@@ -153,7 +166,9 @@ async def on_message(message):
                         else:
                             embed = discord.Embed(
                                 title="", description="%s was banned by %s.\nNo reason provided." % (temp[2], message.author.display_name), color=0xff0000)
-                            await u.send("You were banned from the `Official ThetaHacks Server`. No reason provided.")
+                            embed2 = discord.Embed(
+                                title="", description="You were banned by %s.\nNo reason provided." % (message.author.display_name), color=0xff0000)
+                            await u.send(embed=embed2)
                             await message.author.guild.ban(user=u)
                             await message.channel.send(embed=embed)
 
@@ -165,7 +180,7 @@ async def on_message(message):
 
     elif message.content == "?!v01":
         embed = discord.Embed(
-            title="Verify", description="React with ✅ to verify and gain access to the rest of the server.", color=0x00ff00)
+            title="Verify", description="React with ✅ to get the `Attendees` role if you have already signed up for ThetaHacks at [some link].", color=0x00ff00)
         msg = await message.channel.send(embed=embed)
         client.v = str(msg.id)
         await msg.add_reaction("✅")
@@ -178,12 +193,38 @@ async def on_message(message):
 async def on_reaction_add(reaction, user):
 
     # VERIFY WItH REACTION
+    valid_emails = ["test@test.com"]
 
     if str(reaction.emoji).strip() == "✅" and str(reaction.message.id) == client.v:
-        role = get(user.guild.roles, name="Attendees")
-        if role not in user.roles:
-            await user.add_roles(role)
-            await user.send("Hello {}, welcome to the `Official ThetaHacks Server`!".format(user.display_name))
+        c = True
+        while c:
+            role = get(user.guild.roles, name="Attendees")
+            if role not in user.roles:
+                embed = discord.Embed(
+                    title="Verification", description="Please type your registered email. If you have not registered yet, go to [some link].", color=0xff00d1)
+                await user.send(embed=embed)
+
+                def check(msg):
+                    return msg.channel == user.dm_channel and msg.author == user
+                reply = await client.wait_for('message', check=check)
+
+                if reply.content.lower().strip() in valid_emails:
+                    await user.add_roles(role)
+                    embed = discord.Embed(
+                        title="Success!", description="You have been successfully verified.", color=0x00ff00)
+                    await user.send(embed=embed)
+                    c = False
+                else:
+                    embed = discord.Embed(
+                        title="Error", description="Your email is not in our database. Are you sure you signed up at [some link]? If you think this is a mistake, please DM one of the admins to be manually verified. Type `retry` if you want to try again.", color=0xff0000)
+                    await user.send(embed=embed)
+                    reply = await client.wait_for('message', check=check)
+                    if reply.content.lower().strip() == 'retry':
+                        c = True
+                    else:
+                        c = False
+            else:
+                c = False
 
 
 @client.event
@@ -194,8 +235,11 @@ async def on_member_join(member):
     for channel in member.guild.channels:
         if channel.name == 'welcome':
             embed = discord.Embed(
-                title="Welcome", description="Welcome to the `Official ThetaHacks Discord`, %s!\nHead over to `#verify` to gain access to the rest of the server!" % member.mention, color=0xff00d1)
+                title="Welcome", description="Welcome to the `Official ThetaHacks Server`, %s!" % member.mention, color=0xff00d1)
             await channel.send(embed=embed)
+            embed = discord.Embed(
+                title="Welcome", description="Hello %s, welcome to the `Official ThetaHacks Server!`" % member.mention, color=0xff00d1)
+            await member.send(embed=embed)
             break
 
 client.run(TOKEN)
