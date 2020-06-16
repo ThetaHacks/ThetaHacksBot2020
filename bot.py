@@ -125,9 +125,11 @@ async def on_message(message):
                                 title="", description="%s was kicked by %s.\nReason: %s." % (temp[2], message.author.display_name, r), color=0xffa600)
                             embed2 = discord.Embed(
                                 title="", description="You were kicked from the `Official ThetaHacks Server` by %s.\nReason: %s." % (message.author.display_name, r), color=0xffa600)
+
                             await u.send(embed=embed2)
                             await message.author.guild.kick(user=u, reason=r)
                             await message.channel.send(embed=embed)
+
                     else:
                         if admin in u.roles or bot in u.roles or mod in u.roles:
                             await message.channel.send("Insufficient permissions.")
@@ -135,7 +137,8 @@ async def on_message(message):
                             embed = discord.Embed(
                                 title="", description="%s was kicked by %s.\nNo reason provided." % (temp[2], message.author.display_name), color=0xffa600)
                             embed2 = discord.Embed(
-                                title="", description="You were kicked from the `Official ThetaHacks Server` by %s.\nNoreason provided." % (message.author.display_name), color=0xffa600)
+                                title="", description="You were kicked from the `Official ThetaHacks Server` by %s.\nNo reason provided." % (message.author.display_name), color=0xffa600)
+
                             await u.send(embed=embed2)
                             await message.author.guild.kick(user=u)
                             await message.channel.send(embed=embed)
@@ -201,7 +204,7 @@ async def on_reaction_add(reaction, user):
             role = get(user.guild.roles, name="Attendees")
             if role not in user.roles:
                 embed = discord.Embed(
-                    title="Verification", description="Please type your registered email. If you have not registered yet, go to [some link].", color=0xff00d1)
+                    title="Verification", description="Please type your registered email. If you have not registered yet, go to [some link].", color=0x00f7ff)
                 await user.send(embed=embed)
 
                 def check(msg):
