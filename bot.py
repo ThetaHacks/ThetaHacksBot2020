@@ -388,7 +388,11 @@ async def on_message(message):
 @client.event
 async def on_reaction_add(reaction, user):
 
-    # VERIFY WItH REACTION
+    ####### VERIFY WITH REACTION #######
+    #
+    #
+    #
+    ####### VERIFY WITH REACTION #######
 
     # check for correct reaction and correct message
     if str(reaction.emoji).strip() == "✅" and str(reaction.message.id) == client.v:
@@ -488,7 +492,11 @@ async def on_reaction_add(reaction, user):
 @client.event
 async def on_member_join(member):
 
-    # CUSTOM WELCOME
+    ##### CUSTOM WELCOME #####
+    #
+    #
+    #
+    ##### CUSTOM WELCOME #####
 
     for channel in member.guild.channels:
         if channel.name == 'welcome':
@@ -507,7 +515,11 @@ async def on_member_join(member):
 @client.event
 async def on_member_remove(member):
 
-    # UPDATE ALREADY VERIFIED EMAILS
+    ##### UPDATE VERIFIED EMAILS #####
+    #
+    #
+    #
+    ##### UPDATE VERIFIED EMAILS #####
 
     with open('already_verified.txt', 'r') as fin:
         temp = fin.read().split("\n")
