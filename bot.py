@@ -1,22 +1,30 @@
 import os
-
 import discord
 from dotenv import load_dotenv
 from discord.utils import get
 from discord.ext import commands
+import random
+import requests
+import json
+
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
+TYPEFORM = os.getenv('TYPEFORM_TOKEN')
 
 client = discord.Client()
 client.v = 0
 
 
+headers = {
+    'Authorization': 'bearer ' + TYPEFORM
+}
+
+
 @client.event
 async def on_ready():
+    await client.change_presence(activity=discord.Game(name="being made by Andy Li"))
     print(f'{client.user} has connected to Discord!')
-
-    await client.change_presence(activity=discord.Game(name='Made by Andy Li'))
 
 
 @client.event
@@ -36,7 +44,7 @@ async def on_message(message):
 
     elif "".join([i for i in message.content.lower() if i != " "]).startswith('!signup'):
         embed = discord.Embed(
-            title="Sign Up", description="Go to [some link] to sign up!", color=0xb134eb)
+            title="Sign Up", description="Go to https://thetahacks.github.io/ThetaHacksSite/ to sign up!", color=0xb134eb)
         await message.channel.send(embed=embed)
 
     # INFO
@@ -50,15 +58,35 @@ async def on_message(message):
 
     elif "".join([i for i in message.content.lower() if i != " "]).startswith('!help'):
         embed = discord.Embed(
-            title="Help", description="Valid commands:\n`!signup` - Signup form link\n`!info` - ThetaHacks information\n`!help` - View valid commands\n`!stats` - See server statistics\n`!rules` - See server rules", color=0x0027ff)
+            title="Help", description="Valid commands:\n`!signup` - Signup form link\n`!info` - ThetaHacks information\n`!help` - View valid commands\n`!stats` - See server statistics\n`!rules` - See server rules\n`!kill [@user]`", color=0x0027ff)
         await message.channel.send(embed=embed)
 
     # RULES
 
     elif "".join([i for i in message.content.lower() if i != " "]).startswith('!rules'):
         embed = discord.Embed(
-            title="Rules", description="1. Don't swear/cuss\n2. Be PG", color=0xaa00ff)
+            title="Server Rules", description="1. Do not bully or harass others. Homophobia, racism and other discrimination is not allowed. Treat others the way you wish to be treated.\n\n2. Spamming, messages that do not contribute to the general conversation and non-English messages are not allowed. With this in mind, please also send content to its relevant channels.\n\n3. Excessive or toxic swearing, as well as generally distasteful or NSFW content is not allowed.\n\n4. Do not partake in activity against any Terms of Service within our community. This includes but is not limited to, the act of purchasing and selling accounts.\n\n5. Discord statuses should be clean, this means no slurs, nothing that breaks TOS, no promotion, etc. Failure to comply with a mod’s request to change your status in a timely manner will deem a punishment proportionate to how severe your status is.", color=0xaa00ff)
         await message.channel.send(embed=embed)
+
+    # KILL
+
+    elif message.content.lower().strip().split(" ")[0] == "!kill":
+        temp = message.content.lower().split(" ")
+        if len(temp) < 2:
+            await message.channel.send("Invalid arguments for command `kill`.")
+        else:
+            try:
+                u = message.mentions[0]
+            except:
+                await message.channel.send("Invalid arguments for command `kill`.")
+            else:
+                kill_messages = ["barbecued", "disintegrated", "360-no-scoped",
+                                 "eaten alive", "yeeted out of existence", "squashed", "smited"]
+                this_msg = random.choice(kill_messages)
+
+                embed = discord.Embed(
+                    title="K-O!", description="%s was %s by %s" % (u.display_name, this_msg, message.author.display_name), color=0xff00d1)
+                await message.channel.send(embed=embed)
 
     # STATS
 
@@ -123,13 +151,17 @@ async def on_message(message):
                 except:
                     await message.channel.send("Invalid arguments for command `kick`.")
                 else:
+                    kick_messages = ["kicked in the heinie",
+                                     "yeeted out of existence", "turned into dust", "barbecued"]
+
+                    this_msg = random.choice(kick_messages)
                     if len(temp) > 3:
                         r = " ".join(temp[3:])
                         if admin in u.roles or bot in u.roles or mod in u.roles:
                             await message.channel.send("Insufficient permissions.")
                         else:
                             embed = discord.Embed(
-                                title="", description="%s was kicked by %s.\nReason: %s." % (temp[2], message.author.display_name, r), color=0xffa600)
+                                title="", description="%s was %s by %s.\nReason: %s." % (temp[2], this_msg, message.author.display_name, r), color=0xffa600)
                             embed2 = discord.Embed(
                                 title="", description="You were kicked from the `Official ThetaHacks Server` by %s.\nReason: %s." % (message.author.display_name, r), color=0xffa600)
 
@@ -142,7 +174,7 @@ async def on_message(message):
                             await message.channel.send("Insufficient permissions.")
                         else:
                             embed = discord.Embed(
-                                title="", description="%s was kicked by %s.\nNo reason provided." % (temp[2], message.author.display_name), color=0xffa600)
+                                title="", description="%s was %s by %s.\nNo reason provided." % (temp[2], this_msg, message.author.display_name), color=0xffa600)
                             embed2 = discord.Embed(
                                 title="", description="You were kicked from the `Official ThetaHacks Server` by %s.\nNo reason provided." % (message.author.display_name), color=0xffa600)
 
@@ -158,16 +190,21 @@ async def on_message(message):
                 except:
                     await message.channel.send("Invalid arguments for command `ban`.")
                 else:
+                    ban_messages = ["struck by the banhammer",
+                                    "banned out of existence"]
+
+                    this_msg = random.choice(ban_messages)
+
                     if len(temp) > 3:
                         r = " ".join(temp[3:])
                         if admin in u.roles or bot in u.roles or mod in u.roles:
                             await message.channel.send("Insufficient permissions.")
                         else:
                             embed = discord.Embed(
-                                title="", description="%s was banned by %s.\nReason: %s." % (temp[2], message.author.display_name, r), color=0xff0000)
+                                title="", description="%s was %s by %s.\nReason: %s." % (temp[2], this_msg, message.author.display_name, r), color=0xff0000)
                             embed2 = discord.Embed(
                                 title="", description="You were banned from the `Official ThetaHacks Server` by %s. Reason: %s." % (message.author.display_name, r), color=0xff0000)
-                            await u.send("You were banned from the `Official ThetaHacks Server`. Reason: %s." % r)
+                            await u.send(embed=embed2)
                             await message.author.guild.ban(user=u, reason=r)
                             await message.channel.send(embed=embed)
                     else:
@@ -175,7 +212,7 @@ async def on_message(message):
                             await message.channel.send("Insufficient permissions.")
                         else:
                             embed = discord.Embed(
-                                title="", description="%s was banned by %s.\nNo reason provided." % (temp[2], message.author.display_name), color=0xff0000)
+                                title="", description="%s was %s by %s.\nNo reason provided." % (temp[2], this_msg, message.author.display_name), color=0xff0000)
                             embed2 = discord.Embed(
                                 title="", description="You were banned by %s.\nNo reason provided." % (message.author.display_name), color=0xff0000)
                             await u.send(embed=embed2)
@@ -190,7 +227,7 @@ async def on_message(message):
 
     elif message.content == "?!v01":
         embed = discord.Embed(
-            title="Verify", description="React with ✅ to get the `Attendees` role if you have already signed up for ThetaHacks at [some link].", color=0x00ff00)
+            title="Verify", description="React with ✅ to get the `Attendees` role if you have already signed up for ThetaHacks at https://thetahacks.github.io/ThetaHacksSite/.", color=0x00ff00)
         msg = await message.channel.send(embed=embed)
         client.v = str(msg.id)
         await msg.add_reaction("✅")
@@ -203,7 +240,6 @@ async def on_message(message):
 async def on_reaction_add(reaction, user):
 
     # VERIFY WItH REACTION
-    valid_emails = ["test@test.com"]
 
     if str(reaction.emoji).strip() == "✅" and str(reaction.message.id) == client.v:
         c = True
@@ -211,28 +247,59 @@ async def on_reaction_add(reaction, user):
             role = get(user.guild.roles, name="Attendees")
             if role not in user.roles:
                 embed = discord.Embed(
-                    title="Verification", description="Please type your registered email. If you have not registered yet, go to [some link].", color=0x00f7ff)
+                    title="Verification", description="Please type your registered email. If you have not registered yet, go to https://thetahacks.github.io/ThetaHacksSite/.", color=0x00f7ff)
                 await user.send(embed=embed)
 
                 def check(msg):
                     return msg.channel == user.dm_channel and msg.author == user
                 reply = await client.wait_for('message', check=check)
 
-                if reply.content.lower().strip() in valid_emails:
+                r = requests.get(
+                    "https://api.typeform.com/forms/iPkfUe/responses", headers=headers)
+
+                print(r.text)
+
+                jsn = json.loads(r.text)
+
+                valid_emails = [i["answers"][2]['email'].strip()
+                                for i in jsn["items"]]
+
+                with open('already_verified.txt', 'r') as fin:
+                    already_verified = [
+                        i.strip().split(" ")[1] for i in fin.read().split("\n") if i.strip() != ""]
+                    if reply.content.lower().strip() in already_verified:
+                        a_v_b = True
+                    else:
+                        a_v_b = False
+
+                if reply.content.lower().strip() in valid_emails and not a_v_b:
                     await user.add_roles(role)
                     embed = discord.Embed(
                         title="Success!", description="You have been successfully verified.", color=0x00ff00)
                     await user.send(embed=embed)
+                    with open('already_verified.txt', 'r') as fin:
+                        prev = fin.read()
+                    with open('already_verified.txt', 'w') as fout:
+                        fout.write(prev + "\n" + str(reply.author.id) +
+                                   " " + reply.content.lower().strip())
                     c = False
                 else:
-                    embed = discord.Embed(
-                        title="Error", description="Your email is not in our database. Are you sure you signed up at [some link]? If you think this is a mistake, please DM one of the admins to be manually verified. Type `retry` if you want to try again.", color=0xff0000)
-                    await user.send(embed=embed)
+                    if a_v_b:
+                        embed = discord.Embed(
+                            title="Error", description="Your email has already been used by another user to verify. If you think this is a mistake, please DM one of the admins to be manually verified. Type `retry` if you want to try again.", color=0xff0000)
+                        await user.send(embed=embed)
+                    else:
+                        embed = discord.Embed(
+                            title="Error", description="Your email is not in our database. Are you sure you signed up at https://thetahacks.github.io/ThetaHacksSite/? If you think this is a mistake, please DM one of the admins to be manually verified. Type `retry` if you want to try again.", color=0xff0000)
+                        await user.send(embed=embed)
                     reply = await client.wait_for('message', check=check)
                     if reply.content.lower().strip() == 'retry':
                         c = True
                     else:
                         c = False
+                        embed = discord.Embed(title="Verification Process Abandoned",
+                                              description="If you still want to verify, unreact and react again with the checkmark in `#verify` again.", color=0xff0000)
+                        await user.send(embed=embed)
             else:
                 c = False
 
@@ -248,8 +315,19 @@ async def on_member_join(member):
                 title="Welcome", description="Welcome to the `Official ThetaHacks Server`, %s!" % member.mention, color=0xff00d1)
             await channel.send(embed=embed)
             embed = discord.Embed(
-                title="Welcome", description="Hello %s, welcome to the `Official ThetaHacks Server!`" % member.mention, color=0xff00d1)
+                title="Welcome", description="Hello %s, welcome to the `Official ThetaHacks Server`!" % member.mention, color=0xff00d1)
             await member.send(embed=embed)
             break
+
+
+@client.event
+async def on_member_remove(member):
+    with open('already_verified.txt', 'r') as fin:
+        temp = fin.read().split("\n")
+        for i in temp:
+            if str(member.id) == i.split(" ")[0]:
+                temp.remove(i)
+        with open('already_verified.txt', 'w') as fout:
+            fout.write("\n".join(temp))
 
 client.run(TOKEN)
