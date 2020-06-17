@@ -257,11 +257,9 @@ async def on_reaction_add(reaction, user):
                 r = requests.get(
                     "https://api.typeform.com/forms/iPkfUe/responses", headers=headers)
 
-                print(r.text)
-
                 jsn = json.loads(r.text)
 
-                valid_emails = [i["answers"][2]['email'].strip()
+                valid_emails = [i["answers"][1]['email'].strip()
                                 for i in jsn["items"]]
 
                 with open('already_verified.txt', 'r') as fin:
