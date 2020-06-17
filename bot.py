@@ -54,11 +54,31 @@ async def on_message(message):
             title="Information", description="ThetaHacks is a high school hackathon held in the Bay Area. More information coming soon.", color=0xc0e8f9)
         await message.channel.send(embed=embed)
 
+    elif "".join([i for i in message.content.lower() if i != " "]).startswith('!ping'):
+        await message.channel.send(str(random.randint(0, 100)) + " ms")
+
+    elif message.content.lower().strip().startswith('!dice'):
+        temp = [i for i in message.content.lower().strip().split(" ")
+                if i.strip() != ""]
+        try:
+            n = int(temp[1])
+            if n < 1 or n > 10:
+                await message.channel.send("Invalid arguments for command `dice`.")
+            else:
+                await message.channel.send(" ".join(str(random.randint(1, 6)) for i in range(n)))
+        except:
+            await message.channel.send("Invalid arguments for command `dice`.")
+
+    elif "".join([i for i in message.content.lower() if i != " "]).startswith('!magic8'):
+        bm = ("It is certain.", "It is decidedly so.", "Without a doubt.", "Yes – definitely.", "Most likely.", "Outlook good.", "Signs point to yes.", "Reply hazy, try again.", "Ask again later.",
+              "Better not tell you now.", "Cannot predict now.", "Concentrate and ask again.", "Don't count on it.", "My reply is no.", "My sources say no.", "Outlook not so good.", "Very doubtful.")
+        await message.channel.send(random.choice(bm))
+
     # HELP
 
     elif "".join([i for i in message.content.lower() if i != " "]).startswith('!help'):
         embed = discord.Embed(
-            title="Help", description="Valid commands:\n`!signup` - Signup form link\n`!info` - ThetaHacks information\n`!help` - View valid commands\n`!stats` - See server statistics\n`!rules` - See server rules\n`!kill [@user]`", color=0x0027ff)
+            title="Help", description="Valid commands:\n\n**Utility**\n`!signup` - Signup form link\n`!info` - ThetaHacks information\n`!help` - View valid commands\n`!stats` - See server statistics\n`!rules` - See server rules\n\n**Fun**\n`!kill @user`\n`!ping` - pong\n`!magic8` - Magic 8 ball\n`!dice N` - Roll N dice (1 <= N <= 10)", color=0x0027ff)
         await message.channel.send(embed=embed)
 
     # RULES
