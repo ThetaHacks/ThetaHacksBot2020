@@ -18,20 +18,28 @@ import json
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-TYPEFORM = os.getenv('TYPEFORM_TOKEN')
-
+#TYPEFORM = os.getenv('TYPEFORM_TOKEN')
 
 # initiate client
 
-client = discord.Client()
+intents = discord.Intents.all()
+
+client = discord.Client(intents = intents)
 client.v = 0
+client.v2 = 0
+client.v3 = 0
+client.v4 = 0
+client.v5 = 0
+client.sent = False
+client.roledict={"🐍": "Python", "💀": "Clang", "➕": "C++", "☕": "Java", "🇭": "HTML/CSS", "🇵": "PHP", "🇯": "JavaScript", "#️⃣": "C#", "❓": "Other"}
+client.roledict2={"🤖": "AI/Machine Learning", "🌐": "Web Development", "🎮": "Game Design", "📈" : "Data Science", "🔎": "Algorithms"}
 
 
 # headers for TypeForm API
 
-headers = {
-    'Authorization': 'bearer ' + TYPEFORM
-}
+#headers = {
+#    'Authorization': 'bearer ' + TYPEFORM
+#}
 
 ####### EVENTS #######
 #
@@ -46,7 +54,7 @@ headers = {
 @client.event
 async def on_ready():
     # set status (currently broken)
-    await client.change_presence(activity=discord.Game(name="you"))
+    await client.change_presence(activity=discord.Game(name="thetahacks.tech"))
     # print when ready
     print(f'{client.user} has connected to Discord!')
 
@@ -55,6 +63,87 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    
+    if(not client.sent):
+        client.sent = True
+        embed = discord.Embed(
+                    title="Verify", description="React with ✅ to get the `Attendees` role!", color=0x00ff00)
+        
+        channel = get(message.author.guild.text_channels, name="verify")
+        
+        msg = await channel.send(embed=embed)
+
+        # store message in variable (check line 394)
+        client.v = str(msg.id)
+
+        # first reaction
+
+        await msg.add_reaction("✅")
+        
+        
+        
+        text = "Available Roles:\n\n" + "\n".join(v + ": " + k for k,v in client.roledict2.items())
+        embed2 = discord.Embed(
+                    title="Get Topic Roles", description=text, color=0x0000ff)
+        
+        channel2 = get(message.author.guild.text_channels, name="get-roles")
+        
+        msg2 = await channel2.send(embed=embed2)
+
+        # store message in variable (check line 394)
+        client.v4 = str(msg2.id)
+        
+        for key in client.roledict2.keys():
+            await msg2.add_reaction(key)
+            
+        embed2 = discord.Embed(
+                    title="Remove Topic Roles", description=text, color=0xff0000)
+        
+        channel2 = get(message.author.guild.text_channels, name="get-roles")
+        
+        msg2 = await channel2.send(embed=embed2)
+
+        # store message in variable (check line 394)
+        client.v5 = str(msg2.id)
+        
+        for key in client.roledict2.keys():
+            await msg2.add_reaction(key)
+        
+        
+        
+        text = "Available Roles:\n\n" + "\n".join(v + ": " + k for k,v in client.roledict.items())
+        
+    
+        
+        embed2 = discord.Embed(
+                    title="Get Language Roles", description=text, color=0x00ff00)
+        
+        channel2 = get(message.author.guild.text_channels, name="get-roles")
+        
+        msg2 = await channel2.send(embed=embed2)
+
+        # store message in variable (check line 394)
+        client.v2 = str(msg2.id)
+        
+        for key in client.roledict.keys():
+            await msg2.add_reaction(key)
+            
+        
+        embed3 = discord.Embed(
+                    title="Remove Language Roles", description=text, color=0xff0000)
+        
+        channel3 = get(message.author.guild.text_channels, name="get-roles")
+        
+        msg3 = await channel3.send(embed=embed3)
+
+        # store message in variable (check line 394)
+        client.v3 = str(msg3.id)
+        
+        for key in client.roledict.keys():
+            await msg3.add_reaction(key)
+            
+
+        
 
     ####### ! COMMANDS #######
     #
@@ -62,7 +151,7 @@ async def on_message(message):
     #
     ####### ! COMMANDS #######
 
-    # prevent looping
+    # prevent looping    
 
     if message.author == client.user:
         return
@@ -76,14 +165,14 @@ async def on_message(message):
 
     elif "".join([i for i in message.content.lower() if i != " "]).startswith('!signup'):
         embed = discord.Embed(
-            title="Sign Up", description="Go to https://thetahacks.github.io/ThetaHacksSite/ to sign up!", color=0xb134eb)
+            title="Sign Up", description="Go to https://thetahacks.tech to sign up. Be sure to register by December 5th!", color=0xb134eb)
         await message.channel.send(embed=embed)
 
     # INFO
 
     elif "".join([i for i in message.content.lower() if i != " "]).startswith('!info'):
         embed = discord.Embed(
-            title="Information", description="ThetaHacks is a high school hackathon held in the Bay Area. More information coming soon.", color=0xc0e8f9)
+            title="Information", description="ThetaHacks is a 24-hour virtual High-School Hackathon occurring from December 19-20. What better way to start off your winter break with free merch, coding workshops, and a community of developers to talk with! We have awards from our sponsors ranging from awesome tech to free t-shirts & more! Anyone from any background of coding is welcome to join. \n More info on our website: https://thetahacks.tech/", color=0xc0e8f9)
         await message.channel.send(embed=embed)
 
     # PING
@@ -161,7 +250,7 @@ async def on_message(message):
         # dictionary
         a = {}
         # prevent errors when no members have role "testing", check line 158
-        a["testing"] = 0
+        '''a["testing"] = 0
         # loop through server members
         for member in message.author.guild.members:
             # count roles
@@ -176,8 +265,24 @@ async def on_message(message):
 
         # on each new line, lists a role and how many people have that role (excluded are "testing", "ThetaHacks Bot")
         text = "\n".join("`%i` %s" % (v, k) for k, v in a.items()
-                         if k not in ("testing", "ThetaHacks Bot"))
-
+                         if k not in ("testing", "ThetaHacks Bot"))'''
+                         
+        good_roles = ("@everyone", "Attendees", "Leadership", "Staff")
+                         
+        for member in message.author.guild.members:
+            # count roles
+            for role in member.roles:
+                if(str(role.name) in good_roles):
+                    if str(role.name) not in a.keys():
+                        a[str(role.name)] = 1
+                    else:
+                        a[str(role.name)] += 1    
+                    
+        a["All Members"] = a["@everyone"]
+        del a["@everyone"]
+                    
+        text = "\n".join("`%i` %s" % (v, k) for k, v in a.items())   
+        
         embed = discord.Embed(
             title="ThetaHacks Stats", description=text, color=0x00ff9d)
         await message.channel.send(embed=embed)
@@ -191,8 +296,8 @@ async def on_message(message):
 
     elif message.content.lower().strip().split(" ")[0] == "sudo":
         # admin/mod.bot role variable
-        admin = get(message.author.guild.roles, name="Admins")
-        mod = get(message.author.guild.roles, name="Senior Mods")
+        admin = get(message.author.guild.roles, name="Leadership")
+        # mod = get(message.author.guild.roles, name="Senior Mods")
         bot = get(message.author.guild.roles, name="ThetaHacks Bot")
 
         # only admins can use this command
@@ -361,20 +466,6 @@ async def on_message(message):
     #
     # GENERATE REACION TO VERIFY (SPECIAL) #
 
-    elif message.content == "?!v01":
-
-        # add embed
-
-        embed = discord.Embed(
-            title="Verify", description="React with ✅ to get the `Attendees` role if you have already signed up for ThetaHacks at https://thetahacks.github.io/ThetaHacksSite/.", color=0x00ff00)
-        msg = await message.channel.send(embed=embed)
-
-        # store message in variable (check line 394)
-        client.v = str(msg.id)
-
-        # first reaction
-
-        await msg.add_reaction("✅")
 
     # INVALID ATTEMPTED COMMAND #
     #
@@ -393,19 +484,36 @@ async def on_reaction_add(reaction, user):
     #
     #
     ####### VERIFY WITH REACTION #######
+    
+    if str(reaction.message.id) == client.v2 and str(reaction.emoji).strip() in client.roledict.keys():
+        role = get(user.guild.roles, name=client.roledict[str(reaction.emoji).strip()])
+        await user.add_roles(role)
+        
+    if str(reaction.message.id) == client.v3 and str(reaction.emoji).strip() in client.roledict.keys():
+        role = get(user.guild.roles, name=client.roledict[str(reaction.emoji).strip()])
+        await user.remove_roles(role)
+        
+    if str(reaction.message.id) == client.v4 and str(reaction.emoji).strip() in client.roledict2.keys():
+        role = get(user.guild.roles, name=client.roledict2[str(reaction.emoji).strip()])
+        await user.add_roles(role)
+        
+    if str(reaction.message.id) == client.v5 and str(reaction.emoji).strip() in client.roledict2.keys():
+        role = get(user.guild.roles, name=client.roledict2[str(reaction.emoji).strip()])
+        await user.remove_roles(role)
 
     # check for correct reaction and correct message
     if str(reaction.emoji).strip() == "✅" and str(reaction.message.id) == client.v:
         # loop attemps
-        c = True
-        while c:
+        #c = True
+        #while c:
             # get role
 
-            role = get(user.guild.roles, name="Attendees")
+        role = get(user.guild.roles, name="Attendees")
+        await user.add_roles(role)
 
             # check if user doesn't already have the role
 
-            if role not in user.roles:
+        '''if role not in user.roles:
 
                 # ask for email
 
@@ -486,7 +594,7 @@ async def on_reaction_add(reaction, user):
                         await user.send(embed=embed)
             else:
                 # already have the role
-                c = False
+                c = False'''
 
 
 @client.event
