@@ -82,7 +82,7 @@ async def on_message(message):
         
         
         
-        text = "Available Roles:\n\n" + "\n".join(v + ": " + k for k,v in client.roledict2.items())
+        text = "Available Roles:\n\n" + "\n\n".join(v + ": " + k for k,v in client.roledict2.items()) + "\n\n**Unreact to remove a role.**"
         embed2 = discord.Embed(
                     title="Get Topic Roles", description=text, color=0x0000ff)
         
@@ -95,23 +95,10 @@ async def on_message(message):
         
         for key in client.roledict2.keys():
             await msg2.add_reaction(key)
-            
-        embed2 = discord.Embed(
-                    title="Remove Topic Roles", description=text, color=0xff0000)
-        
-        channel2 = get(message.author.guild.text_channels, name="get-roles")
-        
-        msg2 = await channel2.send(embed=embed2)
-
-        # store message in variable (check line 394)
-        client.v5 = str(msg2.id)
-        
-        for key in client.roledict2.keys():
-            await msg2.add_reaction(key)
         
         
         
-        text = "Available Roles:\n\n" + "\n".join(v + ": " + k for k,v in client.roledict.items())
+        text = "Available Roles:\n\n" + "\n\n".join(v + ": " + k for k,v in client.roledict.items()) + "\n\n**Unreact to remove a role.**"
         
     
         
@@ -127,20 +114,6 @@ async def on_message(message):
         
         for key in client.roledict.keys():
             await msg2.add_reaction(key)
-            
-        
-        embed3 = discord.Embed(
-                    title="Remove Language Roles", description=text, color=0xff0000)
-        
-        channel3 = get(message.author.guild.text_channels, name="get-roles")
-        
-        msg3 = await channel3.send(embed=embed3)
-
-        # store message in variable (check line 394)
-        client.v3 = str(msg3.id)
-        
-        for key in client.roledict.keys():
-            await msg3.add_reaction(key)
             
 
         
@@ -475,6 +448,20 @@ async def on_message(message):
     elif message.content.strip()[0] == '!':
         await message.channel.send("Invalid command. `!help` for more commands.")
 
+@client.event
+async def on_reaction_remove(reaction, user):
+        
+    if str(reaction.message.id) == client.v2 and str(reaction.emoji).strip() in client.roledict.keys():
+        role = get(user.guild.roles, name=client.roledict[str(reaction.emoji).strip()])
+        await user.remove_roles(role)
+        
+        await user.send("Your `" + client.roledict[str(reaction.emoji).strip()] + "` language role has been removed.")
+        
+    if str(reaction.message.id) == client.v4 and str(reaction.emoji).strip() in client.roledict2.keys():
+        role = get(user.guild.roles, name=client.roledict2[str(reaction.emoji).strip()])
+        await user.remove_roles(role)
+        
+        await user.send("Your `" + client.roledict2[str(reaction.emoji).strip()] + "` topic role has been removed.")
 
 @client.event
 async def on_reaction_add(reaction, user):
@@ -489,17 +476,15 @@ async def on_reaction_add(reaction, user):
         role = get(user.guild.roles, name=client.roledict[str(reaction.emoji).strip()])
         await user.add_roles(role)
         
-    if str(reaction.message.id) == client.v3 and str(reaction.emoji).strip() in client.roledict.keys():
-        role = get(user.guild.roles, name=client.roledict[str(reaction.emoji).strip()])
-        await user.remove_roles(role)
+        await user.send("The `" + client.roledict[str(reaction.emoji).strip()] + "` language role has been given to you.")
+
         
     if str(reaction.message.id) == client.v4 and str(reaction.emoji).strip() in client.roledict2.keys():
         role = get(user.guild.roles, name=client.roledict2[str(reaction.emoji).strip()])
         await user.add_roles(role)
         
-    if str(reaction.message.id) == client.v5 and str(reaction.emoji).strip() in client.roledict2.keys():
-        role = get(user.guild.roles, name=client.roledict2[str(reaction.emoji).strip()])
-        await user.remove_roles(role)
+        await user.send("The `" + client.roledict2[str(reaction.emoji).strip()] + "` topic role has been given to you.")
+
 
     # check for correct reaction and correct message
     if str(reaction.emoji).strip() == "✅" and str(reaction.message.id) == client.v:
@@ -510,91 +495,9 @@ async def on_reaction_add(reaction, user):
 
         role = get(user.guild.roles, name="Attendees")
         await user.add_roles(role)
+        
+        await user.send("The `Attendee` role has been given to you.")
 
-            # check if user doesn't already have the role
-
-        '''if role not in user.roles:
-
-                # ask for email
-
-                embed = discord.Embed(
-                    title="Verification", description="Please type your registered email. If you have not registered yet, go to https://thetahacks.github.io/ThetaHacksSite/.", color=0x00f7ff)
-                await user.send(embed=embed)
-
-                # custom check for email in DMs
-
-                def check(msg):
-                    return msg.channel == user.dm_channel and msg.author == user
-                reply = await client.wait_for('message', check=check)
-
-                # if replied, check the TypeForm API for registered emails
-
-                r = requests.get(
-                    "https://api.typeform.com/forms/iPkfUe/responses", headers=headers)
-
-                # convert to json
-                jsn = json.loads(r.text)
-                # get valid emails
-                valid_emails = [i["answers"][1]['email'].strip()
-                                for i in jsn["items"]]
-
-                # get all already registered emails from the .txt
-                with open('already_verified.txt', 'r') as fin:
-                    # parse a \n seperated file
-                    already_verified = [
-                        i.strip().split(" ")[1] for i in fin.read().split("\n") if i.strip() != ""]
-                    if reply.content.lower().strip() in already_verified:
-                        a_v_b = True
-                    else:
-                        a_v_b = False
-
-                # if valid email that hasn't been used is entered:
-                if reply.content.lower().strip() in valid_emails and not a_v_b:
-                    # add the role
-                    await user.add_roles(role)
-
-                    # send DM
-                    embed = discord.Embed(
-                        title="Success!", description="You have been successfully verified.", color=0x00ff00)
-                    await user.send(embed=embed)
-
-                    # save email in .txt as a registered email
-                    with open('already_verified.txt', 'r') as fin:
-                        prev = fin.read()
-                    with open('already_verified.txt', 'w') as fout:
-                        fout.write(prev + "\n" + str(reply.author.id) +
-                                   " " + reply.content.lower().strip())
-
-                    # break the loop
-                    c = False
-                else:
-
-                    # if already registered
-                    if a_v_b:
-                        embed = discord.Embed(
-                            title="Error", description="Your email has already been used by another user to verify. If you think this is a mistake, please DM one of the admins to be manually verified. Type `retry` if you want to try again.", color=0xff0000)
-                        await user.send(embed=embed)
-                    else:
-                        # if email not found
-                        embed = discord.Embed(
-                            title="Error", description="Your email is not in our database. Are you sure you signed up at https://thetahacks.github.io/ThetaHacksSite/? If you think this is a mistake, please DM one of the admins to be manually verified. Type `retry` if you want to try again.", color=0xff0000)
-                        await user.send(embed=embed)
-
-                    # check for retry reply
-                    reply = await client.wait_for('message', check=check)
-
-                    # if they want to retry
-                    if reply.content.lower().strip() == 'retry':
-                        c = True
-                    else:
-                        # break the loop and send a message
-                        c = False
-                        embed = discord.Embed(title="Verification Process Abandoned",
-                                              description="If you still want to verify, unreact and react again with the checkmark in `#verify` again.", color=0xff0000)
-                        await user.send(embed=embed)
-            else:
-                # already have the role
-                c = False'''
 
 
 @client.event
