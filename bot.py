@@ -472,31 +472,39 @@ async def on_reaction_add(reaction, user):
     #
     ####### VERIFY WITH REACTION #######
     
-    if str(reaction.message.id) == client.v2 and str(reaction.emoji).strip() in client.roledict.keys():
-        role = get(user.guild.roles, name=client.roledict[str(reaction.emoji).strip()])
-        await user.add_roles(role)
-        
-        await user.send("The `" + client.roledict[str(reaction.emoji).strip()] + "` language role has been given to you.")
+    if str(reaction.message.id) == client.v2:
+        if str(reaction.emoji).strip() in client.roledict.keys():            
+            role = get(user.guild.roles, name=client.roledict[str(reaction.emoji).strip()])
+            await user.add_roles(role)
+            
+            await user.send("The `" + client.roledict[str(reaction.emoji).strip()] + "` language role has been given to you.")
+        else:  
+            await reaction.remove(user)
 
         
-    if str(reaction.message.id) == client.v4 and str(reaction.emoji).strip() in client.roledict2.keys():
-        role = get(user.guild.roles, name=client.roledict2[str(reaction.emoji).strip()])
-        await user.add_roles(role)
-        
-        await user.send("The `" + client.roledict2[str(reaction.emoji).strip()] + "` topic role has been given to you.")
+    if str(reaction.message.id) == client.v4:
+        if str(reaction.emoji).strip() in client.roledict2.keys():
+            role = get(user.guild.roles, name=client.roledict2[str(reaction.emoji).strip()])
+            await user.add_roles(role)
+            
+            await user.send("The `" + client.roledict2[str(reaction.emoji).strip()] + "` topic role has been given to you.")
+        else:
+            await reaction.remove(user)
 
 
     # check for correct reaction and correct message
-    if str(reaction.emoji).strip() == "✅" and str(reaction.message.id) == client.v:
+    if str(reaction.message.id) == client.v:
         # loop attemps
         #c = True
         #while c:
             # get role
-
-        role = get(user.guild.roles, name="Attendees")
-        await user.add_roles(role)
-        
-        await user.send("The `Attendee` role has been given to you.")
+        if str(reaction.emoji).strip() == "✅":
+            role = get(user.guild.roles, name="Attendees")
+            await user.add_roles(role)
+            
+            await user.send("The `Attendee` role has been given to you.")
+        else:
+            await reaction.remove(user)
 
 
 
