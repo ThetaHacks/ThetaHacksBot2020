@@ -519,12 +519,12 @@ async def on_member_join(member):
         if channel.name == 'welcome':
             # send to welcome channel
             embed = discord.Embed(
-                title="Welcome", description="Welcome to the `Official ThetaHacks Server`, %s! Sign up for the hackathon at https://thetahacks.tech" % member.mention, color=0xff00d1)
+                title="Welcome", description="Welcome to the `Official ThetaHacks Server`, %s! Sign up for the hackathon at https://thetahacks.tech/signup" % member.mention, color=0xff00d1)
             await channel.send(embed=embed)
 
             # send in DMs
             embed = discord.Embed(
-                title="Welcome", description="Hello %s, welcome to the `Official ThetaHacks Server`! Sign up for the hackathon at https://thetahacks.tech" % member.mention, color=0xff00d1)
+                title="Welcome", description="Hello %s, welcome to the `Official ThetaHacks Server`! Sign up for the hackathon at https://thetahacks.tech/signup" % member.mention, color=0xff00d1)
             await member.send(embed=embed)
             break
 
