@@ -4,8 +4,6 @@ from dotenv import load_dotenv
 from discord.utils import get
 from discord.ext import commands
 import random
-import requests
-import json
 
 ####### SETUP #######
 #

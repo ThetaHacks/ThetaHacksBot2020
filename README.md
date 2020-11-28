@@ -1,8 +1,8 @@
 # ThetaHacksBot
 
 **The official bot for the ThetaHacks Discord Server**<br>
-Made by **AndyLi23** with Python3<br><br>
-Dependencies: os, discord, dotenv, discord.py, random, requests, json, TypeForm API
+Made by **[Andy Li](https://github.com/andyli23)** with discord.py<br><br>
+Dependencies: os, discord, dotenv, discord.py, random
 
 ## Valid commands:
 
