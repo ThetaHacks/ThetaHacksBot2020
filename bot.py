@@ -269,12 +269,12 @@ async def on_message(message):
 
     elif message.content.lower().strip().split(" ")[0] == "sudo":
         # admin/mod.bot role variable
-        admin = get(message.author.guild.roles, name="Leadership")
+        admin = get(message.author.guild.roles, name="Admin")
         # mod = get(message.author.guild.roles, name="Senior Mods")
         bot = get(message.author.guild.roles, name="ThetaHacks Bot")
 
         # only admins can use this command
-        if admin in message.author.roles or bot in message.author.roles or mod in message.author.roles:
+        if admin in message.author.roles or bot in message.author.roles:
             temp = message.content.lower().split(" ")
 
             # CLEAR
@@ -338,7 +338,7 @@ async def on_message(message):
                         r = " ".join(temp[3:])
 
                         # cannot kick admin, bot, or mod
-                        if admin in u.roles or bot in u.roles or mod in u.roles:
+                        if admin in u.roles or bot in u.roles:
                             await message.channel.send("Insufficient permissions.")
                         else:
                             # send message in channel
@@ -358,7 +358,7 @@ async def on_message(message):
                         # if no reason provided
 
                         # cannot kick admin, bot, or mod
-                        if admin in u.roles or bot in u.roles or mod in u.roles:
+                        if admin in u.roles or bot in u.roles:
                             await message.channel.send("Insufficient permissions.")
                         else:
                             # send message in channel
@@ -400,7 +400,7 @@ async def on_message(message):
                         r = " ".join(temp[3:])
 
                         # cannot kick admin, bot, or mod
-                        if admin in u.roles or bot in u.roles or mod in u.roles:
+                        if admin in u.roles or bot in u.roles:
                             await message.channel.send("Insufficient permissions.")
                         else:
 
@@ -415,7 +415,7 @@ async def on_message(message):
                             await message.channel.send(embed=embed)
                     else:
                         # cannot kick admin, bot, or mod
-                        if admin in u.roles or bot in u.roles or mod in u.roles:
+                        if admin in u.roles or bot in u.roles:
                             await message.channel.send("Insufficient permissions.")
                         else:
 
@@ -521,12 +521,12 @@ async def on_member_join(member):
         if channel.name == 'welcome':
             # send to welcome channel
             embed = discord.Embed(
-                title="Welcome", description="Welcome to the `Official ThetaHacks Server`, %s!" % member.mention, color=0xff00d1)
+                title="Welcome", description="Welcome to the `Official ThetaHacks Server`, %s! Sign up for the hackathon at https://thetahacks.tech" % member.mention, color=0xff00d1)
             await channel.send(embed=embed)
 
             # send in DMs
             embed = discord.Embed(
-                title="Welcome", description="Hello %s, welcome to the `Official ThetaHacks Server`!" % member.mention, color=0xff00d1)
+                title="Welcome", description="Hello %s, welcome to the `Official ThetaHacks Server`! Sign up for the hackathon at https://thetahacks.tech" % member.mention, color=0xff00d1)
             await member.send(embed=embed)
             break
 
