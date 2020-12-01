@@ -136,14 +136,14 @@ async def on_message(message):
 
     elif "".join([i for i in message.content.lower() if i != " "]).startswith('!signup'):
         embed = discord.Embed(
-            title="Sign Up", description="Go to https://thetahacks.tech to sign up. Be sure to register by December 5th!", color=0xb134eb)
+            title="Sign Up", description="Go to https://thetahacks.tech/signup to sign up. Be sure to register by January 10, 2021! Also don't forget to sign up on Devpost at https://thetahacks.devpost.com/", color=0xb134eb)
         await message.channel.send(embed=embed)
 
     # INFO
 
     elif "".join([i for i in message.content.lower() if i != " "]).startswith('!info'):
         embed = discord.Embed(
-            title="Information", description="ThetaHacks is a 24-hour virtual High-School Hackathon occurring from January 15-18, 2021. What better way to start off your winter break with free merch, coding workshops, and a community of developers to talk with! We have awards from our sponsors ranging from awesome tech to free t-shirts & more! Anyone from any background of coding is welcome to join. \n More info and signups on our website: https://thetahacks.tech/", color=0xc0e8f9)
+            title="Information", description="ThetaHacks is a 24-hour virtual High-School Hackathon occurring from January 15-18, 2021. What better way to start off your winter break with free merch, coding workshops, and a community of developers to talk with! We have awards from our sponsors ranging from awesome tech to free t-shirts & more! Anyone from any background of coding is welcome to join. \n\nLinks:\nMore info and signups on our website: https://thetahacks.tech/ \n Devpost: https://thetahacks.devpost.com/", color=0xc0e8f9)
         await message.channel.send(embed=embed)
 
     # PING
