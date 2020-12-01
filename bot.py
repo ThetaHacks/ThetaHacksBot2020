@@ -143,7 +143,7 @@ async def on_message(message):
 
     elif "".join([i for i in message.content.lower() if i != " "]).startswith('!info'):
         embed = discord.Embed(
-            title="Information", description="ThetaHacks is a 24-hour virtual High-School Hackathon occurring from December 19-20. What better way to start off your winter break with free merch, coding workshops, and a community of developers to talk with! We have awards from our sponsors ranging from awesome tech to free t-shirts & more! Anyone from any background of coding is welcome to join. \n More info on our website: https://thetahacks.tech/", color=0xc0e8f9)
+            title="Information", description="ThetaHacks is a 24-hour virtual High-School Hackathon occurring from January 15-18, 2021. What better way to start off your winter break with free merch, coding workshops, and a community of developers to talk with! We have awards from our sponsors ranging from awesome tech to free t-shirts & more! Anyone from any background of coding is welcome to join. \n More info and signups on our website: https://thetahacks.tech/", color=0xc0e8f9)
         await message.channel.send(embed=embed)
 
     # PING
