@@ -526,6 +526,11 @@ async def on_member_join(member):
             embed = discord.Embed(
                 title="Welcome", description="Hello %s, welcome to the `Official ThetaHacks Server`! Sign up for the hackathon at https://thetahacks.tech/signup" % member.mention, color=0xff00d1)
             await member.send(embed=embed)
+            
+            role = get(member.guild.roles, name="Attendees")
+            await member.add_roles(role)
+            
+            await member.send("The `Attendee` role has been given to you.")
             break
 
 
