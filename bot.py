@@ -64,21 +64,7 @@ async def on_message(message):
     
     if(not client.sent):
         client.sent = True
-        embed = discord.Embed(
-                    title="Verify", description="React with ✅ to get the `Attendees` role!", color=0x00ff00)
-        
-        channel = get(message.author.guild.text_channels, name="verify")
-        
-        msg = await channel.send(embed=embed)
-
-        # store message in variable (check line 394)
-        client.v = str(msg.id)
-
-        # first reaction
-
-        await msg.add_reaction("✅")
-        
-        
+    
         
         text = "Available Roles:\n\n" + "\n\n".join(v + ": " + k for k,v in client.roledict2.items()) + "\n\n**Unreact to remove a role.**"
         embed2 = discord.Embed(
@@ -218,25 +204,7 @@ async def on_message(message):
     # STATS
 
     elif "".join([i for i in message.content.lower() if i != " "]).startswith('!stats'):
-        # dictionary
-        a = {}
-        # prevent errors when no members have role "testing", check line 158
-        '''a["testing"] = 0
-        # loop through server members
-        for member in message.author.guild.members:
-            # count roles
-            for role in member.roles:
-                if str(role.name) not in a.keys():
-                    a[str(role.name)] = 1
-                else:
-                    a[str(role.name)] += 1
 
-        # subtract testing and bot from attendees
-        a["Attendees"] -= a["testing"] + a["ThetaHacks Bot"]
-
-        # on each new line, lists a role and how many people have that role (excluded are "testing", "ThetaHacks Bot")
-        text = "\n".join("`%i` %s" % (v, k) for k, v in a.items()
-                         if k not in ("testing", "ThetaHacks Bot"))'''
                          
         good_roles = ("@everyone", "Attendees", "Leadership", "Staff")
                          
@@ -490,21 +458,6 @@ async def on_reaction_add(reaction, user):
             await reaction.remove(user)
 
 
-    # check for correct reaction and correct message
-    if str(reaction.message.id) == client.v:
-        # loop attemps
-        #c = True
-        #while c:
-            # get role
-        if str(reaction.emoji).strip() == "✅":
-            role = get(user.guild.roles, name="Attendees")
-            await user.add_roles(role)
-            
-            await user.send("The `Attendee` role has been given to you.")
-        else:
-            await reaction.remove(user)
-
-
 
 @client.event
 async def on_member_join(member):
@@ -532,25 +485,6 @@ async def on_member_join(member):
             
             await member.send("The `Attendee` role has been given to you.")
             break
-
-
-@client.event
-async def on_member_remove(member):
-
-    ##### UPDATE VERIFIED EMAILS #####
-    #
-    #
-    #
-    ##### UPDATE VERIFIED EMAILS #####
-
-    with open('already_verified.txt', 'r') as fin:
-        temp = fin.read().split("\n")
-        for i in temp:
-            if str(member.id) == i.split(" ")[0]:
-                # remove email if registered with the leaving user
-                temp.remove(i)
-        with open('already_verified.txt', 'w') as fout:
-            fout.write("\n".join(temp))
 
 
 # run client
