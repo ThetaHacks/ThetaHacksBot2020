@@ -5,18 +5,11 @@ from discord.utils import get
 from discord.ext import commands
 import random
 
-####### SETUP #######
-#
-#
-#
-#
-####### SETUP #######
 
 # get tokens as environment variables (for security)
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-#TYPEFORM = os.getenv('TYPEFORM_TOKEN')
 
 # initiate client
 
@@ -33,12 +26,6 @@ client.roledict={}
 client.roledict2={"🤖": "AI/Machine Learning", "🌐": "Web Development", "🎮": "Game Design", "📈" : "Data Science", "🔎": "Algorithms"}
 
 
-# headers for TypeForm API
-
-#headers = {
-#    'Authorization': 'bearer ' + TYPEFORM
-#}
-
 ####### EVENTS #######
 #
 #
@@ -47,7 +34,6 @@ client.roledict2={"🤖": "AI/Machine Learning", "🌐": "Web Development", "�
 ####### EVENTS #######
 
 # when bot is first activated
-
 
 @client.event
 async def on_ready():
@@ -435,11 +421,6 @@ async def on_message(message):
             # if message author is not not admin/mod/bot
             await message.channel.send("{} is not in the sudoers file. This incident will be reported.".format(
                 message.author.display_name))
-
-    # GENERATE REACION TO VERIFY (SPECIAL) #
-    #
-    #
-    # GENERATE REACION TO VERIFY (SPECIAL) #
 
 
     # INVALID ATTEMPTED COMMAND #
