@@ -265,6 +265,29 @@ async def on_message(message):
         if admin in message.author.roles or bot in message.author.roles:
             temp = message.content.lower().split(" ")
 
+            #message
+            
+            if temp[1] == "message":
+                if temp[2] == "@#de43v%^":
+                    tobesent =  " ".join(message.content.split(" ")[3:])
+                    
+                    print(tobesent)
+                    for member in message.author.guild.members:
+                        try:
+                            await member.send(("Hello %s,\n\n" % member.mention) + tobesent)
+                        except:
+                            pass
+                else:
+                    tobesent =  " ".join(message.content.split(" ")[2:])
+                    
+                    print(tobesent)
+                    for member in message.author.guild.members:
+                        try:
+                            if admin in member.roles:
+                                await member.send(("Hello %s,\n\n" % member.mention) + tobesent)
+                        except:
+                            pass
+            
             # CLEAR
 
             if temp[1] == "clear":
@@ -497,7 +520,7 @@ async def on_member_join(member):
 
             # send in DMs
             embed = discord.Embed(
-                title="Welcome", description="Hello %s, welcome to the `Official ThetaHacks Server`! Sign up for the hackathon at https://thetahacks.tech/signup" % member.mention, color=0xff00d1)
+                title="Welcome", description="Hello %s, welcome to the `Official ThetaHacks Server`! Sign up for the hackathon at https://thetahacks.tech/signup, join the Devpost at https://thetahacks.devpost.com, and sign up for events at https://thetahacks.tech/events!" % member.mention, color=0xff00d1)
             await member.send(embed=embed)
             
             role = get(member.guild.roles, name="Attendees")

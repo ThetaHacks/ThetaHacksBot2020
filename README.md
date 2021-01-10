@@ -18,8 +18,3 @@ Dependencies: os, discord, dotenv, discord.py, random
 `!ping` - pong<br>
 `!magic8` - Magic 8 ball<br>
 `!dice N` - Roll N dice (1 <= N <= 10)<br>
-
-### Admin<br>
-`sudo clear all/N` - Clear all or last N messages<br>
-`sudo kick @user (reason)` - Kick user, reason is optional<br>
-`sudo ban @user (reason)` - Ban user, reason is optional<br>
