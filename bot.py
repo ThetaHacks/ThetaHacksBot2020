@@ -29,7 +29,7 @@ client.v3 = 0
 client.v4 = 0
 client.v5 = 0
 client.sent = False
-client.roledict={"🐍": "Python", "💀": "Clang", "➕": "C++", "☕": "Java", "🇭": "HTML/CSS", "🇵": "PHP", "🇯": "JavaScript", "#️⃣": "C#", "❓": "Other"}
+client.roledict={}
 client.roledict2={"🤖": "AI/Machine Learning", "🌐": "Web Development", "🎮": "Game Design", "📈" : "Data Science", "🔎": "Algorithms"}
 
 
@@ -55,6 +55,41 @@ async def on_ready():
     await client.change_presence(activity=discord.Game(name="thetahacks.tech"))
     # print when ready
     print(f'{client.user} has connected to Discord!')
+    
+    print(client.guilds[0].emojis)
+    
+    py = get(client.guilds[0].emojis, name='python')
+    clang = get(client.guilds[0].emojis, name='clang')
+    cpp = get(client.guilds[0].emojis, name='cpp')
+    java = get(client.guilds[0].emojis, name='java')
+    html = get(client.guilds[0].emojis, name='html')
+    php = get(client.guilds[0].emojis, name='php')
+    js = get(client.guilds[0].emojis, name='javascript')
+    csharp = get(client.guilds[0].emojis, name='csharp')
+    mern = get(client.guilds[0].emojis, name='mern')
+    swift = get(client.guilds[0].emojis, name='swift')
+    dart = get(client.guilds[0].emojis, name='dartlang')
+    other = get(client.guilds[0].emojis, name='huh')
+    rust = get(client.guilds[0].emojis, name='rust')
+    
+    client.roledict[py]="Python"
+    client.roledict[clang]="Clang"
+    client.roledict[cpp]="C++"
+    client.roledict[java]="Java"
+    client.roledict[html]="HTML/CSS"
+    client.roledict[php]="PHP"
+    client.roledict[js]="JavaScript"
+    client.roledict[mern]="MERN"
+    client.roledict[csharp]="C#"
+    client.roledict[swift]="Swift"
+    client.roledict[dart]="Dart"
+    client.roledict[rust]="Rust"
+    client.roledict[other]="Other"
+    
+    print(client.roledict)
+    
+    
+    
 
 # message monitoring
 
@@ -66,7 +101,7 @@ async def on_message(message):
         client.sent = True
     
         
-        text = "Available Roles:\n\n" + "\n\n".join(v + ": " + k for k,v in client.roledict2.items()) + "\n\n**Unreact to remove a role.**"
+        text = "Available Roles:\n\n" + "\n".join(v + ": " + str(k) for k,v in client.roledict2.items()) + "\n\n**Unreact to remove a role.**"
         embed2 = discord.Embed(
                     title="Get Topic Roles", description=text, color=0x0000ff)
         
@@ -82,7 +117,7 @@ async def on_message(message):
         
         
         
-        text = "Available Roles:\n\n" + "\n\n".join(v + ": " + k for k,v in client.roledict.items()) + "\n\n**Unreact to remove a role.**"
+        text = "Available Roles:\n\n" + "\n".join(v + ": " + str(k) for k,v in client.roledict.items()) + "\n\n**Unreact to remove a role.**"
         
     
         
@@ -97,6 +132,7 @@ async def on_message(message):
         client.v2 = str(msg2.id)
         
         for key in client.roledict.keys():
+            print(key)
             await msg2.add_reaction(key)
             
 
@@ -417,11 +453,11 @@ async def on_message(message):
 @client.event
 async def on_reaction_remove(reaction, user):
         
-    if str(reaction.message.id) == client.v2 and str(reaction.emoji).strip() in client.roledict.keys():
-        role = get(user.guild.roles, name=client.roledict[str(reaction.emoji).strip()])
+    if str(reaction.message.id) == client.v2 and reaction.emoji in client.roledict.keys():
+        role = get(user.guild.roles, name=client.roledict[reaction.emoji])
         await user.remove_roles(role)
         
-        await user.send("Your `" + client.roledict[str(reaction.emoji).strip()] + "` language role has been removed.")
+        await user.send("Your `" + client.roledict[reaction.emoji] + "` language role has been removed.")
         
     if str(reaction.message.id) == client.v4 and str(reaction.emoji).strip() in client.roledict2.keys():
         role = get(user.guild.roles, name=client.roledict2[str(reaction.emoji).strip()])
@@ -437,25 +473,28 @@ async def on_reaction_add(reaction, user):
     #
     #
     ####### VERIFY WITH REACTION #######
-    
-    if str(reaction.message.id) == client.v2:
-        if str(reaction.emoji).strip() in client.roledict.keys():            
-            role = get(user.guild.roles, name=client.roledict[str(reaction.emoji).strip()])
-            await user.add_roles(role)
-            
-            await user.send("The `" + client.roledict[str(reaction.emoji).strip()] + "` language role has been given to you.")
-        else:  
-            await reaction.remove(user)
+    try:
+        if str(reaction.message.id) == client.v2:
+            if reaction.emoji in client.roledict.keys():            
+                role = get(user.guild.roles, name=client.roledict[reaction.emoji])
+                await user.add_roles(role)
+                
+                await user.send("The `" + client.roledict[reaction.emoji] + "` language role has been given to you.")
+            else:  
+                await reaction.remove(user)
 
-        
-    if str(reaction.message.id) == client.v4:
-        if str(reaction.emoji).strip() in client.roledict2.keys():
-            role = get(user.guild.roles, name=client.roledict2[str(reaction.emoji).strip()])
-            await user.add_roles(role)
             
-            await user.send("The `" + client.roledict2[str(reaction.emoji).strip()] + "` topic role has been given to you.")
-        else:
-            await reaction.remove(user)
+        if str(reaction.message.id) == client.v4:
+            if str(reaction.emoji).strip() in client.roledict2.keys():
+                role = get(user.guild.roles, name=client.roledict2[str(reaction.emoji).strip()])
+                await user.add_roles(role)
+                
+                await user.send("The `" + client.roledict2[str(reaction.emoji).strip()] + "` topic role has been given to you.")
+            else:
+                await reaction.remove(user)
+    except:
+        pass
+    
 
 
 
