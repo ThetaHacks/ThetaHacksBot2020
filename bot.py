@@ -138,6 +138,8 @@ async def on_message(message):
     # HI
 
     if "".join([i for i in message.content.lower() if i != " "]) in ('hi', 'hello', 'hola'):
+        if message.author.display_name == '@everyone':
+            return
         await message.channel.send("Hello %s!" % message.author.display_name)
 
     # SIGNUP
