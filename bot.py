@@ -73,7 +73,7 @@ async def on_ready():
     client.roledict[other]="Other"
     
     print(client.roledict)
-    
+        
     
     
 
@@ -144,14 +144,14 @@ async def on_message(message):
 
     elif "".join([i for i in message.content.lower() if i != " "]).startswith('!signup'):
         embed = discord.Embed(
-            title="Sign Up", description="Go to https://thetahacks.tech/signup to sign up. Be sure to register by January 10, 2021! Also don't forget to sign up on Devpost at https://thetahacks.devpost.com/", color=0xb134eb)
+            title="Sign Up", description="Go to https://thetahacks.tech/signup to sign up. Be sure to register by January 15, 2021! Also don't forget to sign up on Devpost at https://thetahacks.devpost.com and for events at https://thetahacks.tech/events.", color=0xb134eb)
         await message.channel.send(embed=embed)
 
     # INFO
 
     elif "".join([i for i in message.content.lower() if i != " "]).startswith('!info'):
         embed = discord.Embed(
-            title="Information", description="ThetaHacks is a 24-hour virtual High-School Hackathon occurring from January 15-18, 2021. What better way to start off your winter break with free merch, coding workshops, and a community of developers to talk with! We have awards from our sponsors ranging from awesome tech to free t-shirts & more! Anyone from any background of coding is welcome to join. \n\nLinks:\nMore info and signups on our website: https://thetahacks.tech/ \n Devpost: https://thetahacks.devpost.com/", color=0xc0e8f9)
+            title="Information", description="ThetaHacks is a 24-hour virtual High-School Hackathon occurring from January 15-18, 2021. What better way to start off your winter break with free merch, coding workshops, and a community of developers to talk with! We have awards from our sponsors ranging from awesome tech to free t-shirts & more! Anyone from any background of coding is welcome to join. \n\nLinks:\nMore info and signups on our website: https://thetahacks.tech \n Devpost: https://thetahacks.devpost.com", color=0xc0e8f9)
         await message.channel.send(embed=embed)
 
     # PING
@@ -439,6 +439,34 @@ async def on_message(message):
                             await u.send(embed=embed2)
                             await message.author.guild.ban(user=u)
                             await message.channel.send(embed=embed)
+                            
+                            
+            if temp[1] == "top":
+                d = {}
+                msg = []
+                
+                for channel in client.guilds[0].text_channels:
+                    await message.channel.send("Parsing " + channel.name)
+                    
+                    # create list of all messages in channel history
+                    async for x in channel.history(limit=10000000000000000):
+                        msg.append(x)
+                
+                
+                
+                for m in msg:
+                    if m.author.display_name in d:
+                        d[m.author.display_name]+=1
+                    else:
+                        d[m.author.display_name]=1
+
+                d = {k: v for k, v in sorted(d.items(), key=lambda item: item[1], reverse=True)}
+                
+                with open('d.txt' ,'w') as f:
+                    f.write("\n".join(k+" "+str(v) for k,v in d.items()))
+                
+                with open('d.txt', 'rb') as f:
+                    await message.channel.send(file=discord.File(f, 'd.txt'))
 
         else:
             # if message author is not not admin/mod/bot
