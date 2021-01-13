@@ -15,15 +15,21 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 intents = discord.Intents.all()
 
-client = commands.Bot(command_prefix=commands.when_mentioned_or('!'), intents = intents)
+client = commands.Bot(
+    command_prefix=commands.when_mentioned_or('!'), intents=intents)
 client.v = 0
 client.v2 = 0
 client.v3 = 0
 client.v4 = 0
 client.v5 = 0
 client.sent = False
-client.roledict={}
-client.roledict2={"🤖": "AI/Machine Learning", "🌐": "Web Development", "🎮": "Game Design", "📈" : "Data Science", "🔎": "Algorithms"}
+client.roledict = {}
+client.roledict2 = {"🤖": "AI/Machine Learning", "🌐": "Web Development",
+                    "🎮": "Game Design", "📈": "Data Science", "🔎": "Algorithms"}
+
+cogs = ['cogs.events', 'cogs.commands']
+for i in cogs:
+    client.load_extension(i)
 
 # run client
-client.run(TOKEN)
+client.run('NzI1Mjk4NTY2ODM4NDg1MDUy.XvMs7Q.2OBp1DyebkirMVpxZ8xuu8lPuvE')

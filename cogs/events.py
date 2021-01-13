@@ -311,12 +311,6 @@ class EventsCog(commands.Cog):
                     await message.channel.send("{} is not in the sudoers file. This incident will be reported.".format(
                         message.author.display_name))
 
-            # INVALID ATTEMPTED COMMAND #
-            #
-            #
-            # INVALID ATTEMPTED COMMAND #
-        elif message.content.strip()[0] == '!':
-            await message.channel.send("Invalid command. `!help` for more commands.")
         await self.bot.process_commands(message)
 
     @commands.Cog.listener()
