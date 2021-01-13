@@ -32,4 +32,4 @@ for i in cogs:
     client.load_extension(i)
 
 # run client
-client.run('NzI1Mjk4NTY2ODM4NDg1MDUy.XvMs7Q.2OBp1DyebkirMVpxZ8xuu8lPuvE')
+client.run(TOKEN)
