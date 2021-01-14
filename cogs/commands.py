@@ -12,10 +12,10 @@ class CommandsCog(commands.Cog):
         
     @commands.command(name="events")
     async def events(self, ctx):
-        now = datetime.datetime.now().split(".")[0]
+        now = str(datetime.datetime.now()).split(".")[0]
         ev = {"Event: Among Us Hype Night":(datetime.datetime(2020, 5, 17, 21, 0))}
         embed = discord.Embed(
-            title="Events", description="\n\n".join(str(j[0]) + " " + i for i,j in ev.items()), color=0x00ff9d)
+            title="Events", description="\n\n".join(str(j[0]).split(".")[0] + " " + i for i,j in ev.items()), color=0x00ff9d)
         await ctx.send(embed=embed)
 
     @commands.command(name="signup")
