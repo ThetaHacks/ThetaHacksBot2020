@@ -10,6 +10,63 @@ class CommandsCog(commands.Cog):
         self.bot = bot
         self.bot.remove_command('help')
         
+    @commands.command(name="next")
+    async def next(self, ctx):
+        def format(d, e=False):
+            date_format='%H:%M'
+
+            return d.strftime(date_format)
+        
+        now = str(datetime.datetime.now())
+        ev = {"Hacking Starts":(datetime.datetime(2021, 1, 15, 12, 0),),
+            "Among Us Hype Night":(datetime.datetime(2021, 1, 15, 21, 0),datetime.datetime(2021, 1, 15, 23, 0)),
+            
+            "Opening Ceremony, Team Mixer":(datetime.datetime(2021, 1, 16, 10, 0),datetime.datetime(2021, 1, 16, 11, 30)),
+            "Alon Grinshpoon - Intro to AR (Workshop)":(datetime.datetime(2021, 1, 16, 12, 0),datetime.datetime(2021, 1, 16, 13, 30)),
+            "Rohan Bansal - Electronics and the C Language (Workshop)":(datetime.datetime(2021, 1, 16, 14, 0),datetime.datetime(2021, 1, 16, 15, 30)),
+            "Chinmayi Balasu - Networking in STEM (Speaker)":(datetime.datetime(2021, 1, 16, 16, 0),datetime.datetime(2021, 1, 16, 17, 30)),
+            "Aldrin Brillante - Emoji Prediction (Workshop)":(datetime.datetime(2021, 1, 16, 18, 0),datetime.datetime(2021, 1, 16, 19, 30)),
+            "Ivy Xu - Journey to Entrepreneurship (Speaker)":(datetime.datetime(2021, 1, 16, 20, 0),datetime.datetime(2021, 1, 16, 21, 30)),
+            "Among Us Game Night":(datetime.datetime(2021, 1, 16, 21, 30),datetime.datetime(2021, 1, 17, 0, 0)),
+            
+            "Mr. John Smale - Building a CS Resume (Speaker)":(datetime.datetime(2021, 1, 17, 10, 0),datetime.datetime(2021, 1, 17, 11, 30)),
+            "Mr. Chris Fairley - CAD with Fusion 360 (Workshop)":(datetime.datetime(2021, 1, 17, 14, 0),datetime.datetime(2021, 1, 17, 15, 30)),
+            "Steven Puri (Speaker)":(datetime.datetime(2021, 1, 17, 16, 0),datetime.datetime(2021, 1, 17, 17, 30)),
+            "Anshul Gupta - Intro to Web Dev (Workshop)":(datetime.datetime(2021, 1, 17, 18, 0),datetime.datetime(2021, 1, 17, 19, 30)),
+            "Minecraft Hunger Games":(datetime.datetime(2021, 1, 17, 20, 30),datetime.datetime(2021, 1, 17, 23, 00)),
+            
+            "Hacking Ends":(datetime.datetime(2021, 1, 18, 8, 0),),
+            "Judging":(datetime.datetime(2021, 1, 18, 8, 0),datetime.datetime(2021, 1, 18, 10, 0)),
+            "Closing/Awards Ceremony":(datetime.datetime(2021, 1, 18, 10, 0),datetime.datetime(2021, 1, 18, 1, 00))}
+        
+        for e,t in ev.items():
+            if len(t) == 2:
+                if t[0] < now and t[1] > now:
+                    embed = discord.Embed(
+                        title="Current Event", description=format(t[0])+"-"+format(t[1], True) + " | " + e, color=0x00ff9d)
+                    await ctx.send(embed=embed) 
+                    return 0
+
+        l=-1
+        for e,t in ev.items():
+            l+=1
+            if t[0] > now:      
+                c = list(ev.items())[l]
+                if(len(c[1])==1):
+                    final += format(c[1][0], True) + "       | " + c[0]
+                else:
+                    final += format(c[1][0])+"-"+format(c[1][1], True) + " | " + c[0]
+                embed = discord.Embed(
+                    title="Next Event", description=final, color=0x00ff9d)
+                await ctx.send(embed=embed) 
+                return 0
+        
+        embed = discord.Embed(
+            title="ThetaHacks I has ended.", description="", color=0x00ff9d)
+        await ctx.send(embed=embed) 
+        return 0
+                
+        
     @commands.command(name="events")
     async def events(self, ctx):
         def format(d, e=False):
@@ -22,26 +79,26 @@ class CommandsCog(commands.Cog):
 
 
         now = str(datetime.datetime.now())
-        ev = {"Hacking Starts":(datetime.datetime(2020, 1, 15, 12, 0),),
-            "Among Us Hype Night":(datetime.datetime(2020, 1, 15, 21, 0),datetime.datetime(2020, 1, 15, 23, 0)),
+        ev = {"Hacking Starts":(datetime.datetime(2021, 1, 15, 12, 0),),
+            "Among Us Hype Night":(datetime.datetime(2021, 1, 15, 21, 0),datetime.datetime(2021, 1, 15, 23, 0)),
             
-            "Opening Ceremony, Team Mixer":(datetime.datetime(2020, 1, 16, 10, 0),datetime.datetime(2020, 1, 16, 11, 30)),
-            "Alon Grinshpoon - Intro to AR (Workshop)":(datetime.datetime(2020, 1, 16, 12, 0),datetime.datetime(2020, 1, 16, 13, 30)),
-            "Rohan Bansal - Electronics and the C Language (Workshop)":(datetime.datetime(2020, 1, 16, 14, 0),datetime.datetime(2020, 1, 16, 15, 30)),
-            "Chinmayi Balasu - Networking in STEM (Speaker)":(datetime.datetime(2020, 1, 16, 16, 0),datetime.datetime(2020, 1, 16, 17, 30)),
-            "Aldrin Brillante - Emoji Prediction (Workshop)":(datetime.datetime(2020, 1, 16, 18, 0),datetime.datetime(2020, 1, 16, 19, 30)),
-            "Ivy Xu - Journey to Entrepreneurship (Speaker)":(datetime.datetime(2020, 1, 16, 20, 0),datetime.datetime(2020, 1, 16, 21, 30)),
-            "Among Us Game Night":(datetime.datetime(2020, 1, 16, 21, 30),datetime.datetime(2020, 1, 17, 0, 0)),
+            "Opening Ceremony, Team Mixer":(datetime.datetime(2021, 1, 16, 10, 0),datetime.datetime(2021, 1, 16, 11, 30)),
+            "Alon Grinshpoon - Intro to AR (Workshop)":(datetime.datetime(2021, 1, 16, 12, 0),datetime.datetime(2021, 1, 16, 13, 30)),
+            "Rohan Bansal - Electronics and the C Language (Workshop)":(datetime.datetime(2021, 1, 16, 14, 0),datetime.datetime(2021, 1, 16, 15, 30)),
+            "Chinmayi Balasu - Networking in STEM (Speaker)":(datetime.datetime(2021, 1, 16, 16, 0),datetime.datetime(2021, 1, 16, 17, 30)),
+            "Aldrin Brillante - Emoji Prediction (Workshop)":(datetime.datetime(2021, 1, 16, 18, 0),datetime.datetime(2021, 1, 16, 19, 30)),
+            "Ivy Xu - Journey to Entrepreneurship (Speaker)":(datetime.datetime(2021, 1, 16, 20, 0),datetime.datetime(2021, 1, 16, 21, 30)),
+            "Among Us Game Night":(datetime.datetime(2021, 1, 16, 21, 30),datetime.datetime(2021, 1, 17, 0, 0)),
             
-            "Mr. John Smale - Building a CS Resume (Speaker)":(datetime.datetime(2020, 1, 17, 10, 0),datetime.datetime(2020, 1, 17, 11, 30)),
-            "Mr. Chris Fairley - CAD with Fusion 360 (Workshop)":(datetime.datetime(2020, 1, 17, 14, 0),datetime.datetime(2020, 1, 17, 15, 30)),
-            "Steven Puri (Speaker)":(datetime.datetime(2020, 1, 17, 16, 0),datetime.datetime(2020, 1, 17, 17, 30)),
-            "Anshul Gupta - Intro to Web Dev (Workshop)":(datetime.datetime(2020, 1, 17, 18, 0),datetime.datetime(2020, 1, 17, 19, 30)),
-            "Minecraft Hunger Games":(datetime.datetime(2020, 1, 17, 20, 30),datetime.datetime(2020, 1, 17, 23, 00)),
+            "Mr. John Smale - Building a CS Resume (Speaker)":(datetime.datetime(2021, 1, 17, 10, 0),datetime.datetime(2021, 1, 17, 11, 30)),
+            "Mr. Chris Fairley - CAD with Fusion 360 (Workshop)":(datetime.datetime(2021, 1, 17, 14, 0),datetime.datetime(2021, 1, 17, 15, 30)),
+            "Steven Puri (Speaker)":(datetime.datetime(2021, 1, 17, 16, 0),datetime.datetime(2021, 1, 17, 17, 30)),
+            "Anshul Gupta - Intro to Web Dev (Workshop)":(datetime.datetime(2021, 1, 17, 18, 0),datetime.datetime(2021, 1, 17, 19, 30)),
+            "Minecraft Hunger Games":(datetime.datetime(2021, 1, 17, 20, 30),datetime.datetime(2021, 1, 17, 23, 00)),
             
-            "Hacking Ends":(datetime.datetime(2020, 1, 18, 8, 0),),
-            "Judging":(datetime.datetime(2020, 1, 18, 8, 0),datetime.datetime(2020, 1, 18, 10, 0)),
-            "Closing/Awards Ceremony":(datetime.datetime(2020, 1, 18, 10, 0),datetime.datetime(2020, 1, 18, 1, 00))}
+            "Hacking Ends":(datetime.datetime(2021, 1, 18, 8, 0),),
+            "Judging":(datetime.datetime(2021, 1, 18, 8, 0),datetime.datetime(2021, 1, 18, 10, 0)),
+            "Closing/Awards Ceremony":(datetime.datetime(2021, 1, 18, 10, 0),datetime.datetime(2021, 1, 18, 1, 00))}
 
         days = [{},{},{},{}]
         for e, t in ev.items():
@@ -49,7 +106,7 @@ class CommandsCog(commands.Cog):
             
 
         final = "**Zoom link:** https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09\n\nAll times are in PST\n\n"
-        final += "**1/15**\n"
+        final += "**——1/15——**\n"
         for e, t in days[0].items():
             if(len(t)==1):
                 final += format(t[0], True) + "       | " + e 
@@ -59,21 +116,21 @@ class CommandsCog(commands.Cog):
             
         final += "\n"
 
-        final += "**1/16**\n"
+        final += "**——1/16——**\n"
         for e, t in days[1].items():
             final += format(t[0])+"-"+format(t[1], True) + " | " + e
             final += "\n"
             
         final += "\n"
 
-        final += "**1/17**\n"
+        final += "**——1/17——**\n"
         for e, t in days[2].items():
             final += format(t[0])+"-"+format(t[1], True) + " | " + e
             final += "\n"
             
         final += "\n"
 
-        final += "**1/18**\n"
+        final += "**——1/18——**\n"
         for e, t in days[3].items():
             if(len(t)==1):
                 final += format(t[0], True) + "       | " + e 
@@ -131,7 +188,7 @@ class CommandsCog(commands.Cog):
     @commands.command(name="help")
     async def help(self, ctx):
         embed = discord.Embed(
-            title="Help", description="Valid commands:\n\n**Utility**\n`!events` - List event times and Zoom link\n`!signup` - Signup form link\n`!info` - ThetaHacks information\n`!help` - \
+            title="Help", description="Valid commands:\n\n**Utility**\n`!events` - List event times and Zoom link\n`!next` - Show next event and Zoom link\n`!signup` - Signup form link\n`!info` - ThetaHacks information\n`!help` - \
                 View valid commands\n`!stats` - See server statistics\n`!rules` - See server rules\n\n**Fun**\n`!kill @user`\n`!ping` - pong\n`!magic8` - \
                     Magic 8 ball\n`!dice N` - Roll N dice (1 <= N <= 10)", color=0x0027ff)
         await ctx.send(embed=embed)
