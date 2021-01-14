@@ -91,225 +91,225 @@ class EventsCog(commands.Cog):
             if message.author == client.user:
                 return
 
-            if "".join([i for i in message.content.lower() if i != " "]) in ('hi', 'hello', 'hola'):
-                await message.channel.send("Hello %s!" % message.author.display_name)
+        if "".join([i for i in message.content.lower() if i != " "]) in ('hi', 'hello', 'hola'):
+            await message.channel.send("Hello %s!" % message.author.display_name)
 
-            if message.content.lower().strip().split(" ")[0] == "sudo":
-                # admin/mod.bot role variable
-                admin = get(message.author.guild.roles, name="Admin")
-                # mod = get(message.author.guild.roles, name="Senior Mods")
-                bot = get(message.author.guild.roles, name="ThetaHacks Bot")
+        if message.content.lower().strip().split(" ")[0] == "sudo":
+            # admin/mod.bot role variable
+            admin = get(message.author.guild.roles, name="Admin")
+            # mod = get(message.author.guild.roles, name="Senior Mods")
+            bot = get(message.author.guild.roles, name="ThetaHacks Bot")
 
-                # only admins can use this command
-                if admin in message.author.roles or bot in message.author.roles:
-                    temp = message.content.lower().split(" ")
+            # only admins can use this command
+            if admin in message.author.roles or bot in message.author.roles:
+                temp = message.content.lower().split(" ")
 
-                    # message
+                # message
 
-                    if temp[1] == "message":
-                        if temp[2] == "@#de43v%^":
-                            tobesent = " ".join(message.content.split(" ")[3:])
+                if temp[1] == "message":
+                    if temp[2] == "@#de43v%^":
+                        tobesent = " ".join(message.content.split(" ")[3:])
 
-                            print(tobesent)
-                            for member in message.author.guild.members:
-                                try:
-                                    await member.send(("Hello %s,\n\n" % member.mention) + tobesent)
-                                except:
-                                    pass
-                        else:
-                            tobesent = " ".join(message.content.split(" ")[2:])
-
-                            print(tobesent)
-                            for member in message.author.guild.members:
-                                try:
-                                    if admin in member.roles:
-                                        await member.send(("Hello %s,\n\n" % member.mention) + tobesent)
-                                except:
-                                    pass
-
-                    # CLEAR
-
-                    if temp[1] == "clear":
-                        # if no arguments
-                        if len(temp) == 2:
-                            await message.channel.send("Invalid arguments for command `clear`.")
-                        elif temp[2] == "all":
-                            # clear all
-                            msg = []
-                            # create list of all messages in channel history
-                            async for x in message.channel.history():
-                                msg.append(x)
-                            # delete messages
-                            await message.channel.delete_messages(msg)
-                            await message.channel.send("All messages deleted by %s." % message.author.display_name)
-                        else:
+                        print(tobesent)
+                        for member in message.author.guild.members:
                             try:
-                                # try to parse argument for integer
-                                n = int(temp[2])
-
-                                # if invalid argument
-                                if n <= 0 or not n:
-                                    await message.channel.send("Invalid arguments for command `clear`.")
-                                else:
-                                    # delete last n messages (plus the clear command)
-                                    msg = []
-                                    async for x in message.channel.history(limit=n+1):
-                                        msg.append(x)
-                                    await message.channel.delete_messages(msg)
-
-                                    await message.channel.send("`%i` messages deleted by %s" % (n, message.author.display_name))
+                                await member.send(("Hello %s,\n\n" % member.mention) + tobesent)
                             except:
-                                # error while parsing
-                                await message.channel.send("Invalid arguments for command `clear`.")
+                                pass
+                    else:
+                        tobesent = " ".join(message.content.split(" ")[2:])
 
-                    # KICK
+                        print(tobesent)
+                        for member in message.author.guild.members:
+                            try:
+                                if admin in member.roles:
+                                    await member.send(("Hello %s,\n\n" % member.mention) + tobesent)
+                            except:
+                                pass
 
-                    if temp[1] == "kick":
-                        # if no user provided
-                        if len(temp) == 2:
-                            await message.channel.send("Invalid arguments for command `kick`.")
-                        try:
-                            # attempt to parse for user
-                            u = message.mentions[0]
-                        except:
-                            # no mentions found
-                            await message.channel.send("Invalid arguments for command `kick`.")
-                        else:
-                            # possible kick messages
-                            kick_messages = ["kicked in the heinie",
-                                             "yeeted out of existence", "turned into dust", "barbecued"]
+                # CLEAR
 
-                            this_msg = random.choice(kick_messages)
-
-                            if len(temp) > 3:
-                                # if reason is given
-
-                                # get reason
-                                r = " ".join(temp[3:])
-
-                                # cannot kick admin, bot, or mod
-                                if admin in u.roles or bot in u.roles:
-                                    await message.channel.send("Insufficient permissions.")
-                                else:
-                                    # send message in channel
-                                    embed = discord.Embed(
-                                        title="", description="%s was %s by %s.\nReason: %s." % (temp[2], this_msg, message.author.display_name, r), color=0xffa600)
-                                    # send DM to kicked user
-                                    embed2 = discord.Embed(
-                                        title="", description="You were kicked from the `Official ThetaHacks Server` by %s.\nReason: %s." % (message.author.display_name, r), color=0xffa600)
-
-                                    await u.send(embed=embed2)
-
-                                    # kick user
-
-                                    await message.author.guild.kick(user=u, reason=r)
-                                    await message.channel.send(embed=embed)
-                            else:
-                                # if no reason provided
-
-                                # cannot kick admin, bot, or mod
-                                if admin in u.roles or bot in u.roles:
-                                    await message.channel.send("Insufficient permissions.")
-                                else:
-                                    # send message in channel
-                                    embed = discord.Embed(
-                                        title="", description="%s was %s by %s.\nNo reason provided." % (temp[2], this_msg, message.author.display_name), color=0xffa600)
-                                    # send DM to kicked user
-                                    embed2 = discord.Embed(
-                                        title="", description="You were kicked from the `Official ThetaHacks Server` by %s.\nNo reason provided." % (message.author.display_name), color=0xffa600)
-
-                                    # kick user
-
-                                    await u.send(embed=embed2)
-                                    await message.author.guild.kick(user=u)
-                                    await message.channel.send(embed=embed)
-
-                    # BAN
-
-                    if temp[1] == "ban":
-                        # no user provided
-                        if len(temp) == 2:
-                            await message.channel.send("Invalid arguments for command `ban`.")
-                        try:
-                            # parse for user
-                            u = message.mentions[0]
-                        except:
-                            # no mentions
-                            await message.channel.send("Invalid arguments for command `ban`.")
-                        else:
-                            # possible messages
-                            ban_messages = ["struck by the banhammer",
-                                            "banned out of existence"]
-
-                            this_msg = random.choice(ban_messages)
-
-                            # with reason
-                            if len(temp) > 3:
-
-                                # get reason
-                                r = " ".join(temp[3:])
-
-                                # cannot kick admin, bot, or mod
-                                if admin in u.roles or bot in u.roles:
-                                    await message.channel.send("Insufficient permissions.")
-                                else:
-
-                                    # send message and ban
-
-                                    embed = discord.Embed(
-                                        title="", description="%s was %s by %s.\nReason: %s." % (temp[2], this_msg, message.author.display_name, r), color=0xff0000)
-                                    embed2 = discord.Embed(
-                                        title="", description="You were banned from the `Official ThetaHacks Server` by %s. Reason: %s." % (message.author.display_name, r), color=0xff0000)
-                                    await u.send(embed=embed2)
-                                    await message.author.guild.ban(user=u, reason=r)
-                                    await message.channel.send(embed=embed)
-                            else:
-                                # cannot kick admin, bot, or mod
-                                if admin in u.roles or bot in u.roles:
-                                    await message.channel.send("Insufficient permissions.")
-                                else:
-
-                                    # send message and ban
-
-                                    embed = discord.Embed(
-                                        title="", description="%s was %s by %s.\nNo reason provided." % (temp[2], this_msg, message.author.display_name), color=0xff0000)
-                                    embed2 = discord.Embed(
-                                        title="", description="You were banned by %s.\nNo reason provided." % (message.author.display_name), color=0xff0000)
-                                    await u.send(embed=embed2)
-                                    await message.author.guild.ban(user=u)
-                                    await message.channel.send(embed=embed)
-
-                    if temp[1] == "top":
-                        d = {}
+                if temp[1] == "clear":
+                    # if no arguments
+                    if len(temp) == 2:
+                        await message.channel.send("Invalid arguments for command `clear`.")
+                    elif temp[2] == "all":
+                        # clear all
                         msg = []
+                        # create list of all messages in channel history
+                        async for x in message.channel.history():
+                            msg.append(x)
+                        # delete messages
+                        await message.channel.delete_messages(msg)
+                        await message.channel.send("All messages deleted by %s." % message.author.display_name)
+                    else:
+                        try:
+                            # try to parse argument for integer
+                            n = int(temp[2])
 
-                        for channel in client.guilds[0].text_channels:
-                            await message.channel.send("Parsing " + channel.name)
-
-                            # create list of all messages in channel history
-                            async for x in channel.history(limit=10000000000000000):
-                                msg.append(x)
-
-                        for m in msg:
-                            if m.author.display_name in d:
-                                d[m.author.display_name] += 1
+                            # if invalid argument
+                            if n <= 0 or not n:
+                                await message.channel.send("Invalid arguments for command `clear`.")
                             else:
-                                d[m.author.display_name] = 1
+                                # delete last n messages (plus the clear command)
+                                msg = []
+                                async for x in message.channel.history(limit=n+1):
+                                    msg.append(x)
+                                await message.channel.delete_messages(msg)
 
-                        d = {k: v for k, v in sorted(
-                            d.items(), key=lambda item: item[1], reverse=True)}
+                                await message.channel.send("`%i` messages deleted by %s" % (n, message.author.display_name))
+                        except:
+                            # error while parsing
+                            await message.channel.send("Invalid arguments for command `clear`.")
 
-                        with open('d.txt', 'w') as f:
-                            f.write("\n".join(k+" "+str(v)
-                                              for k, v in d.items()))
+                # KICK
 
-                        with open('d.txt', 'rb') as f:
-                            await message.channel.send(file=discord.File(f, 'd.txt'))
+                if temp[1] == "kick":
+                    # if no user provided
+                    if len(temp) == 2:
+                        await message.channel.send("Invalid arguments for command `kick`.")
+                    try:
+                        # attempt to parse for user
+                        u = message.mentions[0]
+                    except:
+                        # no mentions found
+                        await message.channel.send("Invalid arguments for command `kick`.")
+                    else:
+                        # possible kick messages
+                        kick_messages = ["kicked in the heinie",
+                                            "yeeted out of existence", "turned into dust", "barbecued"]
 
-                else:
-                    # if message author is not not admin/mod/bot
-                    await message.channel.send("{} is not in the sudoers file. This incident will be reported.".format(
-                        message.author.display_name))
+                        this_msg = random.choice(kick_messages)
+
+                        if len(temp) > 3:
+                            # if reason is given
+
+                            # get reason
+                            r = " ".join(temp[3:])
+
+                            # cannot kick admin, bot, or mod
+                            if admin in u.roles or bot in u.roles:
+                                await message.channel.send("Insufficient permissions.")
+                            else:
+                                # send message in channel
+                                embed = discord.Embed(
+                                    title="", description="%s was %s by %s.\nReason: %s." % (temp[2], this_msg, message.author.display_name, r), color=0xffa600)
+                                # send DM to kicked user
+                                embed2 = discord.Embed(
+                                    title="", description="You were kicked from the `Official ThetaHacks Server` by %s.\nReason: %s." % (message.author.display_name, r), color=0xffa600)
+
+                                await u.send(embed=embed2)
+
+                                # kick user
+
+                                await message.author.guild.kick(user=u, reason=r)
+                                await message.channel.send(embed=embed)
+                        else:
+                            # if no reason provided
+
+                            # cannot kick admin, bot, or mod
+                            if admin in u.roles or bot in u.roles:
+                                await message.channel.send("Insufficient permissions.")
+                            else:
+                                # send message in channel
+                                embed = discord.Embed(
+                                    title="", description="%s was %s by %s.\nNo reason provided." % (temp[2], this_msg, message.author.display_name), color=0xffa600)
+                                # send DM to kicked user
+                                embed2 = discord.Embed(
+                                    title="", description="You were kicked from the `Official ThetaHacks Server` by %s.\nNo reason provided." % (message.author.display_name), color=0xffa600)
+
+                                # kick user
+
+                                await u.send(embed=embed2)
+                                await message.author.guild.kick(user=u)
+                                await message.channel.send(embed=embed)
+
+                # BAN
+
+                if temp[1] == "ban":
+                    # no user provided
+                    if len(temp) == 2:
+                        await message.channel.send("Invalid arguments for command `ban`.")
+                    try:
+                        # parse for user
+                        u = message.mentions[0]
+                    except:
+                        # no mentions
+                        await message.channel.send("Invalid arguments for command `ban`.")
+                    else:
+                        # possible messages
+                        ban_messages = ["struck by the banhammer",
+                                        "banned out of existence"]
+
+                        this_msg = random.choice(ban_messages)
+
+                        # with reason
+                        if len(temp) > 3:
+
+                            # get reason
+                            r = " ".join(temp[3:])
+
+                            # cannot kick admin, bot, or mod
+                            if admin in u.roles or bot in u.roles:
+                                await message.channel.send("Insufficient permissions.")
+                            else:
+
+                                # send message and ban
+
+                                embed = discord.Embed(
+                                    title="", description="%s was %s by %s.\nReason: %s." % (temp[2], this_msg, message.author.display_name, r), color=0xff0000)
+                                embed2 = discord.Embed(
+                                    title="", description="You were banned from the `Official ThetaHacks Server` by %s. Reason: %s." % (message.author.display_name, r), color=0xff0000)
+                                await u.send(embed=embed2)
+                                await message.author.guild.ban(user=u, reason=r)
+                                await message.channel.send(embed=embed)
+                        else:
+                            # cannot kick admin, bot, or mod
+                            if admin in u.roles or bot in u.roles:
+                                await message.channel.send("Insufficient permissions.")
+                            else:
+
+                                # send message and ban
+
+                                embed = discord.Embed(
+                                    title="", description="%s was %s by %s.\nNo reason provided." % (temp[2], this_msg, message.author.display_name), color=0xff0000)
+                                embed2 = discord.Embed(
+                                    title="", description="You were banned by %s.\nNo reason provided." % (message.author.display_name), color=0xff0000)
+                                await u.send(embed=embed2)
+                                await message.author.guild.ban(user=u)
+                                await message.channel.send(embed=embed)
+
+                if temp[1] == "top":
+                    d = {}
+                    msg = []
+
+                    for channel in client.guilds[0].text_channels:
+                        await message.channel.send("Parsing " + channel.name)
+
+                        # create list of all messages in channel history
+                        async for x in channel.history(limit=10000000000000000):
+                            msg.append(x)
+
+                    for m in msg:
+                        if m.author.display_name in d:
+                            d[m.author.display_name] += 1
+                        else:
+                            d[m.author.display_name] = 1
+
+                    d = {k: v for k, v in sorted(
+                        d.items(), key=lambda item: item[1], reverse=True)}
+
+                    with open('d.txt', 'w') as f:
+                        f.write("\n".join(k+" "+str(v)
+                                            for k, v in d.items()))
+
+                    with open('d.txt', 'rb') as f:
+                        await message.channel.send(file=discord.File(f, 'd.txt'))
+
+            else:
+                # if message author is not not admin/mod/bot
+                await message.channel.send("{} is not in the sudoers file. This incident will be reported.".format(
+                    message.author.display_name))
 
         await self.bot.process_commands(message)
 

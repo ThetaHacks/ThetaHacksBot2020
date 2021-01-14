@@ -32,7 +32,7 @@ class CommandsCog(commands.Cog):
     @commands.command(name="dice")
     async def dice(self, ctx, n=1):
         try:
-            if n < 1 or n > 10:
+            if n < 1 or n > 20:
                 await ctx.send("Invalid arguments for command `dice`.")
             else:
                 # roll N dice
