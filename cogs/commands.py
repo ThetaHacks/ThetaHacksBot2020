@@ -43,7 +43,7 @@ class CommandsCog(commands.Cog):
             if len(t) == 2:
                 if t[0] < now and t[1] > now:
                     embed = discord.Embed(
-                        title="Current Event", description=format(t[0])+"-"+format(t[1], True) + " | " + e + "\n\n**Zoom link:** https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09\n\nAll times are in PST", color=0x00ff9d)
+                        title="Current Event", description=format(t[0])+"-"+format(t[1], True) + " | " + e + "\n\nZoom link: https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09", color=0x00ff9d)
                     await ctx.send(embed=embed) 
                     return 0
 
@@ -57,7 +57,7 @@ class CommandsCog(commands.Cog):
                 else:
                     final = format(c[1][0])+"-"+format(c[1][1], True) + " | " + c[0]
                     
-                final += "\n\n**Zoom link:** https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09\n\nAll times are in PST"
+                final += "\n\nZoom link: https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09"
                 embed = discord.Embed(
                     title="Next Event", description=final, color=0x00ff9d)
                 await ctx.send(embed=embed) 
