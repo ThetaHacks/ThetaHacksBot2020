@@ -2,6 +2,7 @@ from discord.ext import commands
 import discord
 import random
 import time
+import datetime
 
 
 class CommandsCog(commands.Cog):
@@ -11,8 +12,10 @@ class CommandsCog(commands.Cog):
         
     @commands.command(name="events")
     async def events(self, ctx):
+        now = datetime.datetime.now().split(".")[0]
+        events = {"Event: Among Us Hype Night":(datetime.datetime(2020, 5, 17, 21, 0))}
         embed = discord.Embed(
-            title="Events", description="", color=0x00ff9d)
+            title="Events", description="\n\n".join(str(j[0]) + " " + i for i,j in events.items()), color=0x00ff9d)
         await ctx.send(embed=embed)
 
     @commands.command(name="signup")

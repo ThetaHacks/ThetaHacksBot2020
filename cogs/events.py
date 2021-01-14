@@ -378,7 +378,8 @@ class EventsCog(commands.Cog):
 
                 # send in DMs
                 embed = discord.Embed(
-                    title="Welcome", description="Hello %s, welcome to the `Official ThetaHacks Server`! Sign up for the hackathon at https://thetahacks.tech/signup, join the Devpost at https://thetahacks.devpost.com, and sign up for events at https://thetahacks.tech/events!" % member.mention, color=0xff00d1)
+                    title="Welcome", description="Hello %s, welcome to the `Official ThetaHacks Server`! Sign up for the hackathon at https://thetahacks.tech/signup, join \
+                        the Devpost at https://thetahacks.devpost.com, and sign up for events at https://thetahacks.tech/events!" % member.mention, color=0xff00d1)
                 await member.send(embed=embed)
 
                 role = get(member.guild.roles, name="Attendees")
