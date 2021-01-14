@@ -13,9 +13,9 @@ class CommandsCog(commands.Cog):
     @commands.command(name="events")
     async def events(self, ctx):
         now = datetime.datetime.now().split(".")[0]
-        events = {"Event: Among Us Hype Night":(datetime.datetime(2020, 5, 17, 21, 0))}
+        ev = {"Event: Among Us Hype Night":(datetime.datetime(2020, 5, 17, 21, 0))}
         embed = discord.Embed(
-            title="Events", description="\n\n".join(str(j[0]) + " " + i for i,j in events.items()), color=0x00ff9d)
+            title="Events", description="\n\n".join(str(j[0]) + " " + i for i,j in ev.items()), color=0x00ff9d)
         await ctx.send(embed=embed)
 
     @commands.command(name="signup")
@@ -106,8 +106,8 @@ class CommandsCog(commands.Cog):
         staff = ctx.guild.get_role(730445847938203718)
         coordinators = ctx.guild.get_role(717171411692683275)
 
-        text = f"`{len(coordinators.members)}` Coordinators\n`{len(staff.members)}` Staff\n`{len(mentors.members)}` Mentors\n`{len(partners.members)}\
-            ` Partners\n`{len(bots.members)}` Bots\n`{len(attendees.members)}` Attendees\n`{len(everyone.members)}` All Members"
+        text = f"`{len(coordinators.members)}` Coordinators\n`{len(staff.members)}` Staff\n`{len(mentors.members)}` Mentors\n`{len(partners.members)}` \
+            Partners\n`{len(bots.members)}` Bots\n`{len(attendees.members)}` Attendees\n`{len(everyone.members)}` All Members"
         embed = discord.Embed(
             title="ThetaHacks Stats", description=text, color=0x00ff9d)
         await ctx.send(embed=embed)
