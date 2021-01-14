@@ -43,6 +43,7 @@ class CommandsCog(commands.Cog):
         for e,t in ev.items():
             if len(t) == 2:
                 if t[0] < now and t[1] > now:
+                    print('cur')
                     embed = discord.Embed(
                         title="Current Event", description="\n**" + format(t[0])+"-"+format(t[1], True) + " | " + e + "**\n\nZoom link: https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09", color=0x00ff9d)
                     await ctx.send(embed=embed) 
@@ -82,7 +83,6 @@ class CommandsCog(commands.Cog):
             return int(d.strftime("%d"))-15
 
 
-        now = str(datetime.datetime.now())
         ev = {"Hacking Starts":(datetime.datetime(2021, 1, 15, 12, 0),),
             "Among Us Hype Night":(datetime.datetime(2021, 1, 15, 21, 0),datetime.datetime(2021, 1, 15, 23, 0)),
             
