@@ -36,6 +36,12 @@ class CommandsCog(commands.Cog):
             "Ivy Xu - Journey to Entrepreneurship (Speaker)":(datetime.datetime(2020, 1, 16, 20, 0),datetime.datetime(2020, 1, 16, 21, 30)),
             "Among Us Game Night":(datetime.datetime(2020, 1, 16, 21, 30),datetime.datetime(2020, 1, 17, 0, 0)),
             
+            "Mr. John Smale - Building a CS Resume (Speaker)":(datetime.datetime(2020, 1, 17, 10, 0),datetime.datetime(2020, 1, 17, 11, 30)),
+            "Mr. Chris Fairley - CAD with Fusion 360 (Workshop)":(datetime.datetime(2020, 1, 17, 14, 0),datetime.datetime(2020, 1, 17, 15, 30)),
+            "Steven Puri (Speaker)":(datetime.datetime(2020, 1, 17, 16, 0),datetime.datetime(2020, 1, 17, 17, 30)),
+            "Anshul Gupta - Intro to Web Dev (Workshop)":(datetime.datetime(2020, 1, 17, 18, 0),datetime.datetime(2020, 1, 17, 19, 30)),
+            "Minecraft Hunger Games":(datetime.datetime(2020, 1, 17, 20, 30),datetime.datetime(2020, 1, 17, 23, 00)),
+            
             "Hacking Ends":(datetime.datetime(2020, 1, 18, 8, 0),),
             "Judging":(datetime.datetime(2020, 1, 18, 8, 0),datetime.datetime(2020, 1, 18, 10, 0)),
             "Closing/Awards Ceremony":(datetime.datetime(2020, 1, 18, 10, 0),datetime.datetime(2020, 1, 18, 1, 00))}
@@ -47,35 +53,39 @@ class CommandsCog(commands.Cog):
 
         final = "**1/15**\n"
         for e, t in days[0].items():
+            final += "`"
             if(len(t)==1):
                 final += format(t[0], True) + "       | " + e 
             else:
                 final += format(t[0])+"-"+format(t[1], True) + " | " + e
-            final += "\n"
+            final += "`\n"
             
         final += "\n\n"
 
         final += "**1/16**\n"
         for e, t in days[1].items():
+            final += "`"
             final += format(t[0])+"-"+format(t[1], True) + " | " + e
-            final += "\n"
+            final += "`\n"
             
         final += "\n\n"
 
         final += "**1/17**\n"
         for e, t in days[2].items():
+            final += "`"
             final += format(t[0])+"-"+format(t[1], True) + " | " + e
-            final += "\n"
+            final += "`\n"
             
         final += "\n\n"
 
         final += "**1/18**\n"
         for e, t in days[3].items():
+            final += "`"
             if(len(t)==1):
                 final += format(t[0], True) + "       | " + e 
             else:
                 final += format(t[0])+"-"+format(t[1], True) + " | " + e
-            final += "\n"
+            final += "`\n"
             
             
         embed = discord.Embed(
