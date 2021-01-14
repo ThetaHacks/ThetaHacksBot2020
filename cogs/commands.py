@@ -21,28 +21,28 @@ class CommandsCog(commands.Cog):
             return d.strftime(date_format)
         
         tz_pst = pytz.timezone('US/Pacific')
-        now = datetime.datetime.now(tz_pst)
-        ev = {"Test":(datetime.datetime(2021, 1, 10, 12, 0).astimezone(timezone('US/Pacific')),datetime.datetime(2021, 1, 14, 15, 0).astimezone(timezone('US/Pacific'))),
-            "Hacking Starts":(datetime.datetime(2021, 1, 15, 12, 0).astimezone(timezone('US/Pacific')),),
-            "Among Us Hype Night":(datetime.datetime(2021, 1, 15, 21, 0).astimezone(timezone('US/Pacific')),datetime.datetime(2021, 1, 15, 23, 0).astimezone(timezone('US/Pacific'))),
+        now = datetime.datetime.now(tz_pst).replace(tzinfo=None)
+        ev = {"Test":(datetime.datetime(2021, 1, 10, 12, 0),datetime.datetime(2021, 1, 14, 15, 0)),
+            "Hacking Starts":(datetime.datetime(2021, 1, 15, 12, 0),),
+            "Among Us Hype Night":(datetime.datetime(2021, 1, 15, 21, 0),datetime.datetime(2021, 1, 15, 23, 0)),
             
-            "Opening Ceremony, Team Mixer":(datetime.datetime(2021, 1, 16, 10, 0).astimezone(timezone('US/Pacific')),datetime.datetime(2021, 1, 16, 11, 30).astimezone(timezone('US/Pacific'))),
-            "Alon Grinshpoon - Intro to AR (Workshop)":(datetime.datetime(2021, 1, 16, 12, 0).astimezone(timezone('US/Pacific')),datetime.datetime(2021, 1, 16, 13, 30).astimezone(timezone('US/Pacific'))),
-            "Rohan Bansal - Electronics and the C Language (Workshop)":(datetime.datetime(2021, 1, 16, 14, 0).astimezone(timezone('US/Pacific')),datetime.datetime(2021, 1, 16, 15, 30).astimezone(timezone('US/Pacific'))),
-            "Chinmayi Balasu - Networking in STEM (Speaker)":(datetime.datetime(2021, 1, 16, 16, 0).astimezone(timezone('US/Pacific')),datetime.datetime(2021, 1, 16, 17, 30).astimezone(timezone('US/Pacific'))),
-            "Aldrin Brillante - Emoji Prediction (Workshop)":(datetime.datetime(2021, 1, 16, 18, 0).astimezone(timezone('US/Pacific')),datetime.datetime(2021, 1, 16, 19, 30).astimezone(timezone('US/Pacific'))),
-            "Ivy Xu - Journey to Entrepreneurship (Speaker)":(datetime.datetime(2021, 1, 16, 20, 0).astimezone(timezone('US/Pacific')),datetime.datetime(2021, 1, 16, 21, 30).astimezone(timezone('US/Pacific'))),
-            "Among Us Game Night":(datetime.datetime(2021, 1, 16, 21, 30).astimezone(timezone('US/Pacific')),datetime.datetime(2021, 1, 17, 0, 0).astimezone(timezone('US/Pacific'))),
+            "Opening Ceremony, Team Mixer":(datetime.datetime(2021, 1, 16, 10, 0),datetime.datetime(2021, 1, 16, 11, 30)),
+            "Alon Grinshpoon - Intro to AR (Workshop)":(datetime.datetime(2021, 1, 16, 12, 0),datetime.datetime(2021, 1, 16, 13, 30)),
+            "Rohan Bansal - Electronics and the C Language (Workshop)":(datetime.datetime(2021, 1, 16, 14, 0),datetime.datetime(2021, 1, 16, 15, 30)),
+            "Chinmayi Balasu - Networking in STEM (Speaker)":(datetime.datetime(2021, 1, 16, 16, 0),datetime.datetime(2021, 1, 16, 17, 30)),
+            "Aldrin Brillante - Emoji Prediction (Workshop)":(datetime.datetime(2021, 1, 16, 18, 0),datetime.datetime(2021, 1, 16, 19, 30)),
+            "Ivy Xu - Journey to Entrepreneurship (Speaker)":(datetime.datetime(2021, 1, 16, 20, 0),datetime.datetime(2021, 1, 16, 21, 30)),
+            "Among Us Game Night":(datetime.datetime(2021, 1, 16, 21, 30),datetime.datetime(2021, 1, 17, 0, 0)),
             
-            "Mr. John Smale - Building a CS Resume (Speaker)":(datetime.datetime(2021, 1, 17, 10, 0).astimezone(timezone('US/Pacific')),datetime.datetime(2021, 1, 17, 11, 30).astimezone(timezone('US/Pacific'))),
-            "Mr. Chris Fairley - CAD with Fusion 360 (Workshop)":(datetime.datetime(2021, 1, 17, 14, 0).astimezone(timezone('US/Pacific')),datetime.datetime(2021, 1, 17, 15, 30).astimezone(timezone('US/Pacific'))),
-            "Steven Puri (Speaker)":(datetime.datetime(2021, 1, 17, 16, 0).astimezone(timezone('US/Pacific')),datetime.datetime(2021, 1, 17, 17, 30).astimezone(timezone('US/Pacific'))),
-            "Anshul Gupta - Intro to Web Dev (Workshop)":(datetime.datetime(2021, 1, 17, 18, 0).astimezone(timezone('US/Pacific')),datetime.datetime(2021, 1, 17, 19, 30).astimezone(timezone('US/Pacific'))),
-            "Minecraft Hunger Games":(datetime.datetime(2021, 1, 17, 20, 30).astimezone(timezone('US/Pacific')),datetime.datetime(2021, 1, 17, 23, 0).astimezone(timezone('US/Pacific'))),
+            "Mr. John Smale - Building a CS Resume (Speaker)":(datetime.datetime(2021, 1, 17, 10, 0),datetime.datetime(2021, 1, 17, 11, 30)),
+            "Mr. Chris Fairley - CAD with Fusion 360 (Workshop)":(datetime.datetime(2021, 1, 17, 14, 0),datetime.datetime(2021, 1, 17, 15, 30)),
+            "Steven Puri (Speaker)":(datetime.datetime(2021, 1, 17, 16, 0),datetime.datetime(2021, 1, 17, 17, 30)),
+            "Anshul Gupta - Intro to Web Dev (Workshop)":(datetime.datetime(2021, 1, 17, 18, 0),datetime.datetime(2021, 1, 17, 19, 30)),
+            "Minecraft Hunger Games":(datetime.datetime(2021, 1, 17, 20, 30),datetime.datetime(2021, 1, 17, 23, 0)),
             
-            "Hacking Ends":(datetime.datetime(2021, 1, 18, 8, 0).astimezone(timezone('US/Pacific')),),
-            "Judging":(datetime.datetime(2021, 1, 18, 8, 0).astimezone(timezone('US/Pacific')),datetime.datetime(2021, 1, 18, 10, 0).astimezone(timezone('US/Pacific'))),
-            "Closing/Awards Ceremony":(datetime.datetime(2021, 1, 18, 10, 0).astimezone(timezone('US/Pacific')),datetime.datetime(2021, 1, 18, 1, 0).astimezone(timezone('US/Pacific')))}
+            "Hacking Ends":(datetime.datetime(2021, 1, 18, 8, 0),),
+            "Judging":(datetime.datetime(2021, 1, 18, 8, 0),datetime.datetime(2021, 1, 18, 10, 0)),
+            "Closing/Awards Ceremony":(datetime.datetime(2021, 1, 18, 10, 0),datetime.datetime(2021, 1, 18, 1, 0))}
         
         for e,t in ev.items():
             if len(t) == 2:
