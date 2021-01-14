@@ -18,7 +18,7 @@ class CommandsCog(commands.Cog):
 
             return d.strftime(date_format)
         
-        tz_pst = pytz.timezone('America/San_Jose')
+        tz_pst = pytz.PST
         now = datetime.datetime.now(tz_pst)
         ev = {"Test":(datetime.datetime(2021, 1, 10, 12, 0),datetime.datetime(2021, 1, 14, 15, 0)),
             "Hacking Starts":(datetime.datetime(2021, 1, 15, 12, 0),),
