@@ -20,27 +20,27 @@ class CommandsCog(commands.Cog):
         
         tz_pst = pytz.timezone('US/Pacific')
         now = datetime.datetime.now(tz_pst)
-        ev = {"Test":(datetime.datetime(2021, 1, 10, 12, 0, tz=tz_pst),datetime.datetime(2021, 1, 14, 15, 0, tz=tz_pst)),
-            "Hacking Starts":(datetime.datetime(2021, 1, 15, 12, 0, tz=tz_pst),),
-            "Among Us Hype Night":(datetime.datetime(2021, 1, 15, 21, 0, tz=tz_pst),datetime.datetime(2021, 1, 15, 23, 0, tz=tz_pst)),
+        ev = {"Test":(datetime.datetime(2021, 1, 10, 12, 0, tz_info=tz_pst),datetime.datetime(2021, 1, 14, 15, 0, tz_info=tz_pst)),
+            "Hacking Starts":(datetime.datetime(2021, 1, 15, 12, 0, tz_info=tz_pst),),
+            "Among Us Hype Night":(datetime.datetime(2021, 1, 15, 21, 0, tz_info=tz_pst),datetime.datetime(2021, 1, 15, 23, 0, tz_info=tz_pst)),
             
-            "Opening Ceremony, Team Mixer":(datetime.datetime(2021, 1, 16, 10, 0, tz=tz_pst),datetime.datetime(2021, 1, 16, 11, 30, tz=tz_pst)),
-            "Alon Grinshpoon - Intro to AR (Workshop)":(datetime.datetime(2021, 1, 16, 12, 0, tz=tz_pst),datetime.datetime(2021, 1, 16, 13, 30, tz=tz_pst)),
-            "Rohan Bansal - Electronics and the C Language (Workshop)":(datetime.datetime(2021, 1, 16, 14, 0, tz=tz_pst),datetime.datetime(2021, 1, 16, 15, 30, tz=tz_pst)),
-            "Chinmayi Balasu - Networking in STEM (Speaker)":(datetime.datetime(2021, 1, 16, 16, 0, tz=tz_pst),datetime.datetime(2021, 1, 16, 17, 30, tz=tz_pst)),
-            "Aldrin Brillante - Emoji Prediction (Workshop)":(datetime.datetime(2021, 1, 16, 18, 0, tz=tz_pst),datetime.datetime(2021, 1, 16, 19, 30, tz=tz_pst)),
-            "Ivy Xu - Journey to Entrepreneurship (Speaker)":(datetime.datetime(2021, 1, 16, 20, 0, tz=tz_pst),datetime.datetime(2021, 1, 16, 21, 30, tz=tz_pst)),
-            "Among Us Game Night":(datetime.datetime(2021, 1, 16, 21, 30, tz=tz_pst),datetime.datetime(2021, 1, 17, 0, 0, tz=tz_pst)),
+            "Opening Ceremony, Team Mixer":(datetime.datetime(2021, 1, 16, 10, 0, tz_info=tz_pst),datetime.datetime(2021, 1, 16, 11, 30, tz_info=tz_pst)),
+            "Alon Grinshpoon - Intro to AR (Workshop)":(datetime.datetime(2021, 1, 16, 12, 0, tz_info=tz_pst),datetime.datetime(2021, 1, 16, 13, 30, tz_info=tz_pst)),
+            "Rohan Bansal - Electronics and the C Language (Workshop)":(datetime.datetime(2021, 1, 16, 14, 0, tz_info=tz_pst),datetime.datetime(2021, 1, 16, 15, 30, tz_info=tz_pst)),
+            "Chinmayi Balasu - Networking in STEM (Speaker)":(datetime.datetime(2021, 1, 16, 16, 0, tz_info=tz_pst),datetime.datetime(2021, 1, 16, 17, 30, tz_info=tz_pst)),
+            "Aldrin Brillante - Emoji Prediction (Workshop)":(datetime.datetime(2021, 1, 16, 18, 0, tz_info=tz_pst),datetime.datetime(2021, 1, 16, 19, 30, tz_info=tz_pst)),
+            "Ivy Xu - Journey to Entrepreneurship (Speaker)":(datetime.datetime(2021, 1, 16, 20, 0, tz_info=tz_pst),datetime.datetime(2021, 1, 16, 21, 30, tz_info=tz_pst)),
+            "Among Us Game Night":(datetime.datetime(2021, 1, 16, 21, 30, tz_info=tz_pst),datetime.datetime(2021, 1, 17, 0, 0, tz_info=tz_pst)),
             
-            "Mr. John Smale - Building a CS Resume (Speaker)":(datetime.datetime(2021, 1, 17, 10, 0, tz=tz_pst),datetime.datetime(2021, 1, 17, 11, 30, tz=tz_pst)),
-            "Mr. Chris Fairley - CAD with Fusion 360 (Workshop)":(datetime.datetime(2021, 1, 17, 14, 0, tz=tz_pst),datetime.datetime(2021, 1, 17, 15, 30, tz=tz_pst)),
-            "Steven Puri (Speaker)":(datetime.datetime(2021, 1, 17, 16, 0, tz=tz_pst),datetime.datetime(2021, 1, 17, 17, 30, tz=tz_pst)),
-            "Anshul Gupta - Intro to Web Dev (Workshop)":(datetime.datetime(2021, 1, 17, 18, 0, tz=tz_pst),datetime.datetime(2021, 1, 17, 19, 30, tz=tz_pst)),
-            "Minecraft Hunger Games":(datetime.datetime(2021, 1, 17, 20, 30, tz=tz_pst),datetime.datetime(2021, 1, 17, 23, 0, tz=tz_pst)),
+            "Mr. John Smale - Building a CS Resume (Speaker)":(datetime.datetime(2021, 1, 17, 10, 0, tz_info=tz_pst),datetime.datetime(2021, 1, 17, 11, 30, tz_info=tz_pst)),
+            "Mr. Chris Fairley - CAD with Fusion 360 (Workshop)":(datetime.datetime(2021, 1, 17, 14, 0, tz_info=tz_pst),datetime.datetime(2021, 1, 17, 15, 30, tz_info=tz_pst)),
+            "Steven Puri (Speaker)":(datetime.datetime(2021, 1, 17, 16, 0, tz_info=tz_pst),datetime.datetime(2021, 1, 17, 17, 30, tz_info=tz_pst)),
+            "Anshul Gupta - Intro to Web Dev (Workshop)":(datetime.datetime(2021, 1, 17, 18, 0, tz_info=tz_pst),datetime.datetime(2021, 1, 17, 19, 30, tz_info=tz_pst)),
+            "Minecraft Hunger Games":(datetime.datetime(2021, 1, 17, 20, 30, tz_info=tz_pst),datetime.datetime(2021, 1, 17, 23, 0, tz_info=tz_pst)),
             
-            "Hacking Ends":(datetime.datetime(2021, 1, 18, 8, 0, tz=tz_pst),),
-            "Judging":(datetime.datetime(2021, 1, 18, 8, 0, tz=tz_pst),datetime.datetime(2021, 1, 18, 10, 0, tz=tz_pst)),
-            "Closing/Awards Ceremony":(datetime.datetime(2021, 1, 18, 10, 0, tz=tz_pst),datetime.datetime(2021, 1, 18, 1, 0, tz=tz_pst))}
+            "Hacking Ends":(datetime.datetime(2021, 1, 18, 8, 0, tz_info=tz_pst),),
+            "Judging":(datetime.datetime(2021, 1, 18, 8, 0, tz_info=tz_pst),datetime.datetime(2021, 1, 18, 10, 0, tz_info=tz_pst)),
+            "Closing/Awards Ceremony":(datetime.datetime(2021, 1, 18, 10, 0, tz_info=tz_pst),datetime.datetime(2021, 1, 18, 1, 0, tz_info=tz_pst))}
         
         for e,t in ev.items():
             if len(t) == 2:
