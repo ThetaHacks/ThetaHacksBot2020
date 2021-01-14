@@ -3,6 +3,7 @@ import discord
 import random
 import time
 import datetime
+import pytz
 
 
 class CommandsCog(commands.Cog):
@@ -17,7 +18,8 @@ class CommandsCog(commands.Cog):
 
             return d.strftime(date_format)
         
-        now = datetime.datetime.now()
+        tz_pst = pytz.timezone('America/San_Jose')
+        now = datetime.datetime.now(tz_pst)
         ev = {"Test":(datetime.datetime(2021, 1, 10, 12, 0),datetime.datetime(2021, 1, 14, 15, 0)),
             "Hacking Starts":(datetime.datetime(2021, 1, 15, 12, 0),),
             "Among Us Hype Night":(datetime.datetime(2021, 1, 15, 21, 0),datetime.datetime(2021, 1, 15, 23, 0)),
