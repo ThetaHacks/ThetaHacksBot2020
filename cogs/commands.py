@@ -53,9 +53,9 @@ class CommandsCog(commands.Cog):
             if t[0] > now:      
                 c = list(ev.items())[l]
                 if(len(c[1])==1):
-                    final += format(c[1][0], True) + "       | " + c[0]
+                    final = format(c[1][0], True) + "       | " + c[0]
                 else:
-                    final += format(c[1][0])+"-"+format(c[1][1], True) + " | " + c[0]
+                    final = format(c[1][0])+"-"+format(c[1][1], True) + " | " + c[0]
                 embed = discord.Embed(
                     title="Next Event", description=final, color=0x00ff9d)
                 await ctx.send(embed=embed) 
