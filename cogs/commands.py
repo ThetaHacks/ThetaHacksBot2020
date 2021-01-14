@@ -73,6 +73,7 @@ class CommandsCog(commands.Cog):
 
     @commands.command(name="stats")
     async def stats(self, ctx):
+        print("hi")
         everyone = ctx.guild.get_role(717170061382516736)
         attendees = ctx.guild.get_role(721874238801313884)
         partners = ctx.guild.get_role(741822062221459568)
