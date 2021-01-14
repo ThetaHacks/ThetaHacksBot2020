@@ -13,7 +13,7 @@ class CommandsCog(commands.Cog):
     @commands.command(name="next")
     async def next(self, ctx):
         def format(d, e=False):
-            date_format='%H:%M'
+            date_format='%m/%d %H:%M PST'
 
             return d.strftime(date_format)
         
@@ -43,7 +43,7 @@ class CommandsCog(commands.Cog):
             if len(t) == 2:
                 if t[0] < now and t[1] > now:
                     embed = discord.Embed(
-                        title="Current Event", description=format(t[0])+"-"+format(t[1], True) + " | " + e, color=0x00ff9d)
+                        title="Current Event", description=format(t[0])+"-"+format(t[1], True) + " | " + e + "\n\n**Zoom link:** https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09\n\nAll times are in PST", color=0x00ff9d)
                     await ctx.send(embed=embed) 
                     return 0
 
@@ -56,6 +56,8 @@ class CommandsCog(commands.Cog):
                     final = format(c[1][0], True) + "       | " + c[0]
                 else:
                     final = format(c[1][0])+"-"+format(c[1][1], True) + " | " + c[0]
+                    
+                final += "\n\n**Zoom link:** https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09\n\nAll times are in PST"
                 embed = discord.Embed(
                     title="Next Event", description=final, color=0x00ff9d)
                 await ctx.send(embed=embed) 
@@ -105,8 +107,8 @@ class CommandsCog(commands.Cog):
             days[getDay(t[0])][e]=t
             
 
-        final = "**Zoom link:** https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09\n\nAll times are in PST\n\n"
-        final += "**——1/15——**\n"
+        
+        final = "**——1/15——**\n"
         for e, t in days[0].items():
             if(len(t)==1):
                 final += format(t[0], True) + "       | " + e 
@@ -138,7 +140,7 @@ class CommandsCog(commands.Cog):
                 final += format(t[0])+"-"+format(t[1], True) + " | " + e
             final += "\n"
         
-        
+        final += "\n\n**Zoom link:** https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09\n\nAll times are in PST"
             
         embed = discord.Embed(
             title="Events", description=final, color=0x00ff9d)
