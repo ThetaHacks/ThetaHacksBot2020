@@ -5,7 +5,6 @@ from discord.utils import get
 from discord.ext import commands
 import random
 
-
 # get tokens as environment variables (for security)
 
 load_dotenv()

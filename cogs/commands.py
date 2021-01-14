@@ -4,6 +4,8 @@ import random
 import time
 import datetime
 from pytz import timezone
+import pytz
+
 
 
 class CommandsCog(commands.Cog):
