@@ -21,7 +21,7 @@ class CommandsCog(commands.Cog):
             return d.strftime(date_format)
         
         def getDay(d):
-            date_format='%m:%d'
+            date_format='%m/%d'
 
             return d.strftime(date_format)
         
