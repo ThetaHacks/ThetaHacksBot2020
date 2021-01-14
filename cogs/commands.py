@@ -8,17 +8,27 @@ class CommandsCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.bot.remove_command('help')
+        
+    @commands.command(name="events")
+    async def events(self, ctx):
+        embed = discord.Embed(
+            title="Events", description="", color=0x00ff9d)
+        await ctx.send(embed=embed)
 
     @commands.command(name="signup")
     async def signup(self, ctx):
         embed = discord.Embed(
-            title="Sign Up", description="Go to https://thetahacks.tech/signup to sign up. Be sure to register by January 15, 2021! Also don't forget to sign up on Devpost at https://thetahacks.devpost.com and for events at https://thetahacks.tech/events.", color=0xb134eb)
+            title="Sign Up", description="Go to https://thetahacks.tech/signup to sign up. Be sure to register by January 15, 2021! \
+                Also don't forget to sign up on Devpost at https://thetahacks.devpost.com and for events at https://thetahacks.tech/events.", color=0xb134eb)
         await ctx.send(embed=embed)
 
     @commands.command(name="info")
     async def info(self, ctx):
         embed = discord.Embed(
-            title="Information", description="ThetaHacks is a 24-hour virtual High-School Hackathon occurring from January 15-18, 2021. What better way to start off your winter break with free merch, coding workshops, and a community of developers to talk with! We have awards from our sponsors ranging from awesome tech to free t-shirts & more! Anyone from any background of coding is welcome to join. \n\nLinks:\nMore info and signups on our website: https://thetahacks.tech \n Devpost: https://thetahacks.devpost.com", color=0xc0e8f9)
+            title="Information", description="ThetaHacks is a 24-hour virtual High-School Hackathon occurring from January 15-18, 2021. \
+                What better way to start off your winter break with free merch, coding workshops, and a community of developers to talk with! \
+                    We have awards from our sponsors ranging from awesome tech to free t-shirts & more! Anyone from any background of coding is \
+                        welcome to join. \n\nLinks:\nMore info and signups on our website: https://thetahacks.tech \n Devpost: https://thetahacks.devpost.com", color=0xc0e8f9)
         await ctx.send(embed=embed)
 
     @commands.command(name="ping")
@@ -49,13 +59,24 @@ class CommandsCog(commands.Cog):
     @commands.command(name="help")
     async def help(self, ctx):
         embed = discord.Embed(
-            title="Help", description="Valid commands:\n\n**Utility**\n`!signup` - Signup form link\n`!info` - ThetaHacks information\n`!help` - View valid commands\n`!stats` - See server statistics\n`!rules` - See server rules\n\n**Fun**\n`!kill @user`\n`!ping` - pong\n`!magic8` - Magic 8 ball\n`!dice N` - Roll N dice (1 <= N <= 10)", color=0x0027ff)
+            title="Help", description="Valid commands:\n\n**Utility**\n`!events` - List event times and Zoom link\n`!signup` - Signup form link\n`!info` - ThetaHacks information\n`!help` - \
+                View valid commands\n`!stats` - See server statistics\n`!rules` - See server rules\n\n**Fun**\n`!kill @user`\n`!ping` - pong\n`!magic8` - \
+                    Magic 8 ball\n`!dice N` - Roll N dice (1 <= N <= 10)", color=0x0027ff)
         await ctx.send(embed=embed)
 
     @commands.command(name="rules")
     async def rules(self, ctx):
         embed = discord.Embed(
-            title="Server Rules", description="1. Do not bully or harass others. Homophobia, racism and other discrimination is not allowed. Treat others the way you wish to be treated.\n\n2. Spamming, messages that do not contribute to the general conversation and non-English messages are not allowed. With this in mind, please also send content to its relevant channels.\n\n3. Excessive or toxic swearing, as well as generally distasteful or NSFW content is not allowed.\n\n4. Do not partake in activity against any Terms of Service within our community. This includes but is not limited to, the act of purchasing and selling accounts.\n\n5. Do not promote your personal material on our server without consent of a mod or admin. If you would like to partner with us, please contact an admin.\n\n6. Discord statuses/nicknames/names should be clean, this means no slurs, nothing that breaks TOS, no promotion, etc. Failure to comply with a mod’s request to change your status in a timely manner will deem a punishment proportionate to how severe your status is.\n\n7. Logical extensions of rules may also be enforced.", color=0xaa00ff)
+            title="Server Rules", description="1. Do not bully or harass others. Homophobia, racism and other discrimination is not allowed. \
+                Treat others the way you wish to be treated.\n\n2. Spamming, messages that do not contribute to the general conversation and \
+                    non-English messages are not allowed. With this in mind, please also send content to its relevant channels.\n\n3. \
+                        Excessive or toxic swearing, as well as generally distasteful or NSFW content is not allowed.\n\n4. Do not partake in \
+                            activity against any Terms of Service within our community. This includes but is not limited to, the act of purchasing \
+                                and selling accounts.\n\n5. Do not promote your personal material on our server without consent of a mod or admin. \
+                                    If you would like to partner with us, please contact an admin.\n\n6. Discord statuses/nicknames/names should be clean, \
+                                        this means no slurs, nothing that breaks TOS, no promotion, etc. Failure to comply with a mod’s request to change your \
+                                            status in a timely manner will deem a punishment proportionate to how severe your status is.\n\n7. Logical extensions of \
+                                                rules may also be enforced.", color=0xaa00ff)
         await ctx.send(embed=embed)
 
     @commands.command(name="kill")
@@ -82,7 +103,8 @@ class CommandsCog(commands.Cog):
         staff = ctx.guild.get_role(730445847938203718)
         coordinators = ctx.guild.get_role(717171411692683275)
 
-        text = f"`{len(coordinators.members)}` Coordinators\n`{len(staff.members)}` Staff\n`{len(mentors.members)}` Mentors\n`{len(partners.members)}` Partners\n`{len(bots.members)}` Bots\n`{len(attendees.members)}` Attendees\n`{len(everyone.members)}` All Members"
+        text = f"`{len(coordinators.members)}` Coordinators\n`{len(staff.members)}` Staff\n`{len(mentors.members)}` Mentors\n`{len(partners.members)}\
+            ` Partners\n`{len(bots.members)}` Bots\n`{len(attendees.members)}` Attendees\n`{len(everyone.members)}` All Members"
         embed = discord.Embed(
             title="ThetaHacks Stats", description=text, color=0x00ff9d)
         await ctx.send(embed=embed)
