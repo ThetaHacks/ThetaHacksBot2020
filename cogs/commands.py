@@ -17,7 +17,7 @@ class CommandsCog(commands.Cog):
 
             return d.strftime(date_format)
         
-        now = str(datetime.datetime.now())
+        now = datetime.datetime.now()
         ev = {"Hacking Starts":(datetime.datetime(2021, 1, 15, 12, 0),),
             "Among Us Hype Night":(datetime.datetime(2021, 1, 15, 21, 0),datetime.datetime(2021, 1, 15, 23, 0)),
             
