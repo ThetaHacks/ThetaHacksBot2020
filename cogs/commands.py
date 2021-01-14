@@ -16,7 +16,12 @@ class CommandsCog(commands.Cog):
     @commands.command(name="next")
     async def next(self, ctx):
         def format(d, e=False):
-            date_format='%m/%d %H:%M'
+            date_format='%H:%M'
+
+            return d.strftime(date_format)
+        
+        def getDay(d):
+            date_format='%m:%d'
 
             return d.strftime(date_format)
         
@@ -49,7 +54,7 @@ class CommandsCog(commands.Cog):
                 if t[0] < now and t[1] > now:
                     print('cur')
                     embed = discord.Embed(
-                        title="Current Event", description="\n**" + format(t[0])+"-"+format(t[1], True) + " | " + e + "**\n\nZoom link: https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09", color=0x00ff9d)
+                        title="Current Event", description="\n**" + getDay(c[1][0]) + " " + format(t[0])+"-"+format(t[1], True) + " | " + e + "**\n\nZoom link: https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09", color=0x00ff9d)
                     await ctx.send(embed=embed) 
                     return 0
 
@@ -62,7 +67,7 @@ class CommandsCog(commands.Cog):
                 if(len(c[1])==1):
                     final += format(c[1][0], True) + "       | " + c[0]
                 else:
-                    final += format(c[1][0])+"-"+format(c[1][1], True) + " | " + c[0]
+                    final += getDay(c[1][0]) + " " + format(c[1][0])+"-"+format(c[1][1], True) + " | " + c[0]
                     
                 final += "**\n\nZoom link: https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09"
                 embed = discord.Embed(
