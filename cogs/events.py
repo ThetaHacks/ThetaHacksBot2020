@@ -311,7 +311,7 @@ class EventsCog(commands.Cog):
                 await message.channel.send("{} is not in the sudoers file. This incident will be reported.".format(
                     message.author.display_name))
 
-        await self.bot.process_commands(message)
+        #await self.bot.process_commands(message)
 
     @commands.Cog.listener()
     async def on_reaction_remove(self, reaction, user):
