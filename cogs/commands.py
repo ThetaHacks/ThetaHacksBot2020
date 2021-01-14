@@ -51,7 +51,8 @@ class CommandsCog(commands.Cog):
             days[getDay(t[0])][e]=t
             
 
-        final = "**1/15**\n"
+        final = "**Zoom link:** https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09\nAll times are in PST\n\n"
+        final += "**1/15**\n"
         for e, t in days[0].items():
             final += "`"
             if(len(t)==1):
@@ -60,7 +61,7 @@ class CommandsCog(commands.Cog):
                 final += format(t[0])+"-"+format(t[1], True) + " | " + e
             final += "`\n"
             
-        final += "\n\n"
+        final += "\n"
 
         final += "**1/16**\n"
         for e, t in days[1].items():
@@ -68,7 +69,7 @@ class CommandsCog(commands.Cog):
             final += format(t[0])+"-"+format(t[1], True) + " | " + e
             final += "`\n"
             
-        final += "\n\n"
+        final += "\n"
 
         final += "**1/17**\n"
         for e, t in days[2].items():
@@ -76,7 +77,7 @@ class CommandsCog(commands.Cog):
             final += format(t[0])+"-"+format(t[1], True) + " | " + e
             final += "`\n"
             
-        final += "\n\n"
+        final += "\n"
 
         final += "**1/18**\n"
         for e, t in days[3].items():
@@ -86,7 +87,8 @@ class CommandsCog(commands.Cog):
             else:
                 final += format(t[0])+"-"+format(t[1], True) + " | " + e
             final += "`\n"
-            
+        
+        
             
         embed = discord.Embed(
             title="Events", description=final, color=0x00ff9d)
