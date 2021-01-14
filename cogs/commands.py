@@ -12,10 +12,49 @@ class CommandsCog(commands.Cog):
         
     @commands.command(name="events")
     async def events(self, ctx):
-        now = str(datetime.datetime.now()).split(".")[0]
-        ev = {"Event: Among Us Hype Night":(datetime.datetime(2020, 5, 17, 21, 0))}
+        def format(d):
+            date_format='%H:%M'
+            #d = datetime.datetime(2021, 1, 15, 21, 0)
+            return d.strftime(date_format)
+            
+        def getDay(d):
+            return int(d.strftime("%d"))-15
+
+
+        now = str(datetime.datetime.now())
+        ev = {"Game: Among Us Hype Night":(datetime.datetime(2020, 1, 15, 21, 0),datetime.datetime(2020, 1, 15, 23, 0)),
+            "Event: Opening Ceremony, Team Mixer":(datetime.datetime(2020, 1, 16, 10, 0),datetime.datetime(2020, 1, 16, 11, 0))}
+
+        days = [{},{},{},{}]
+        for e, t in ev.items():
+            days[getDay(t[0])][e]=t
+            
+        final = ""
+        final += "**1/15**\n"
+        for e, t in days[0].items():
+            final += format(t[0])+"-"+format(t[1]) + " " + e
+            
+        final += "\n\n"
+
+        final += "**1/16**\n"
+        for e, t in days[1].items():
+            final += format(t[0])+"-"+format(t[1]) + " " + e
+            
+        final += "\n\n"
+
+        final += "**1/17**\n"
+        for e, t in days[2].items():
+            final += format(t[0])+"-"+format(t[1]) + " " + e
+            
+        final += "\n\n"
+
+        final += "**1/18**\n"
+        for e, t in days[3].items():
+            final += format(t[0])+"-"+format(t[1]) + " " + e
+            
+            
         embed = discord.Embed(
-            title="Events", description="\n\n".join(str(j[0]).split(".")[0] + " " + i for i,j in ev.items()), color=0x00ff9d)
+            title="Events", description=final, color=0x00ff9d)
         await ctx.send(embed=embed)
 
     @commands.command(name="signup")
