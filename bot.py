@@ -27,9 +27,8 @@ client.roledict = {}
 client.roledict2 = {"🤖": "AI/Machine Learning", "🌐": "Web Development",
                     "🎮": "Game Design", "📈": "Data Science", "🔎": "Algorithms"}
 
-cogs = ['cogs.events', 'cogs.commands']
-for i in cogs:
-    client.load_extension(i)
+for cog in ['cogs.events', 'cogs.commands']:
+    client.load_extension(cog)
 
 # run client
 client.run(TOKEN)

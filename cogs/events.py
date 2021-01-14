@@ -51,7 +51,7 @@ class EventsCog(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         client = self.bot
-        if(not client.sent):
+        if not client.sent:
             client.sent = True
 
             text = "Available Roles:\n\n" + "\n".join(v + ": " + str(
