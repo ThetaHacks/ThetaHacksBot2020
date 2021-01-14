@@ -13,12 +13,13 @@ class CommandsCog(commands.Cog):
     @commands.command(name="next")
     async def next(self, ctx):
         def format(d, e=False):
-            date_format='%m/%d %H:%M PST'
+            date_format='%m/%d %H:%M'
 
             return d.strftime(date_format)
         
         now = datetime.datetime.now()
-        ev = {"Hacking Starts":(datetime.datetime(2021, 1, 15, 12, 0),),
+        ev = {"Test":(datetime.datetime(2021, 1, 10, 12, 0),datetime.datetime(2021, 1, 14, 5, 0)),
+            "Hacking Starts":(datetime.datetime(2021, 1, 15, 12, 0),),
             "Among Us Hype Night":(datetime.datetime(2021, 1, 15, 21, 0),datetime.datetime(2021, 1, 15, 23, 0)),
             
             "Opening Ceremony, Team Mixer":(datetime.datetime(2021, 1, 16, 10, 0),datetime.datetime(2021, 1, 16, 11, 30)),
@@ -43,7 +44,7 @@ class CommandsCog(commands.Cog):
             if len(t) == 2:
                 if t[0] < now and t[1] > now:
                     embed = discord.Embed(
-                        title="Current Event", description=format(t[0])+"-"+format(t[1], True) + " | " + e + "\n\nZoom link: https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09", color=0x00ff9d)
+                        title="Current Event", description="\n**" + format(t[0])+"-"+format(t[1], True) + " | " + e + "**\n\nZoom link: https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09", color=0x00ff9d)
                     await ctx.send(embed=embed) 
                     return 0
 
@@ -52,12 +53,13 @@ class CommandsCog(commands.Cog):
             l+=1
             if t[0] > now:      
                 c = list(ev.items())[l]
+                final="\n**"
                 if(len(c[1])==1):
-                    final = format(c[1][0], True) + "       | " + c[0]
+                    final += format(c[1][0], True) + "       | " + c[0]
                 else:
-                    final = format(c[1][0])+"-"+format(c[1][1], True) + " | " + c[0]
+                    final += format(c[1][0])+"-"+format(c[1][1], True) + " | " + c[0]
                     
-                final += "\n\nZoom link: https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09"
+                final += "**\n\nZoom link: https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09"
                 embed = discord.Embed(
                     title="Next Event", description=final, color=0x00ff9d)
                 await ctx.send(embed=embed) 
