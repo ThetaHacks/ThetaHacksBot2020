@@ -12,8 +12,11 @@ class CommandsCog(commands.Cog):
         
     @commands.command(name="events")
     async def events(self, ctx):
-        def format(d):
-            date_format='%H:%M'
+        def format(d, e=False):
+            if e:
+                date_format='%I:%M %p'
+            else:
+                date_format='%I:%M'
             #d = datetime.datetime(2021, 1, 15, 21, 0)
             return d.strftime(date_format)
             
@@ -22,35 +25,57 @@ class CommandsCog(commands.Cog):
 
 
         now = str(datetime.datetime.now())
-        ev = {"Game: Among Us Hype Night":(datetime.datetime(2020, 1, 15, 21, 0),datetime.datetime(2020, 1, 15, 23, 0)),
-            "Event: Opening Ceremony, Team Mixer":(datetime.datetime(2020, 1, 16, 10, 0),datetime.datetime(2020, 1, 16, 11, 0))}
+        ev = {"Hacking Starts":(datetime.datetime(2020, 1, 15, 12, 0),),
+            "Among Us Hype Night":(datetime.datetime(2020, 1, 15, 21, 0),datetime.datetime(2020, 1, 15, 23, 0)),
+            
+            "Opening Ceremony, Team Mixer":(datetime.datetime(2020, 1, 16, 10, 0),datetime.datetime(2020, 1, 16, 11, 30)),
+            "Alon Grinshpoon - Intro to AR (Workshop)":(datetime.datetime(2020, 1, 16, 12, 0),datetime.datetime(2020, 1, 16, 13, 30)),
+            "Rohan Bansal - Electronics and the C Language (Workshop)":(datetime.datetime(2020, 1, 16, 14, 0),datetime.datetime(2020, 1, 16, 15, 30)),
+            "Chinmayi Balasu - Networking in STEM (Speaker)":(datetime.datetime(2020, 1, 16, 16, 0),datetime.datetime(2020, 1, 16, 17, 30)),
+            "Aldrin Brillante - Emoji Prediction (Workshop)":(datetime.datetime(2020, 1, 16, 18, 0),datetime.datetime(2020, 1, 16, 19, 30)),
+            "Ivy Xu - Journey to Entrepreneurship (Speaker)":(datetime.datetime(2020, 1, 16, 20, 0),datetime.datetime(2020, 1, 16, 21, 30)),
+            "Among Us Game Night":(datetime.datetime(2020, 1, 16, 21, 30),datetime.datetime(2020, 1, 17, 0, 0)),
+            
+            "Hacking Ends":(datetime.datetime(2020, 1, 18, 8, 0),),
+            "Judging":(datetime.datetime(2020, 1, 18, 8, 0),datetime.datetime(2020, 1, 18, 10, 0)),
+            "Closing/Awards Ceremony":(datetime.datetime(2020, 1, 18, 10, 0),datetime.datetime(2020, 1, 18, 1, 00))}
 
         days = [{},{},{},{}]
         for e, t in ev.items():
             days[getDay(t[0])][e]=t
             
-        final = ""
-        final += "**1/15**\n"
+
+        final = "**1/15**\n"
         for e, t in days[0].items():
-            final += format(t[0])+"-"+format(t[1]) + " " + e
+            if(len(t)==1):
+                final += format(t[0], True) + "       | " + e 
+            else:
+                final += format(t[0])+"-"+format(t[1], True) + " | " + e
+            final += "\n"
             
         final += "\n\n"
 
         final += "**1/16**\n"
         for e, t in days[1].items():
-            final += format(t[0])+"-"+format(t[1]) + " " + e
+            final += format(t[0])+"-"+format(t[1], True) + " | " + e
+            final += "\n"
             
         final += "\n\n"
 
         final += "**1/17**\n"
         for e, t in days[2].items():
-            final += format(t[0])+"-"+format(t[1]) + " " + e
+            final += format(t[0])+"-"+format(t[1], True) + " | " + e
+            final += "\n"
             
         final += "\n\n"
 
         final += "**1/18**\n"
         for e, t in days[3].items():
-            final += format(t[0])+"-"+format(t[1]) + " " + e
+            if(len(t)==1):
+                final += format(t[0], True) + "       | " + e 
+            else:
+                final += format(t[0])+"-"+format(t[1], True) + " | " + e
+            final += "\n"
             
             
         embed = discord.Embed(
