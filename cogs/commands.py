@@ -65,7 +65,7 @@ class CommandsCog(commands.Cog):
                 c = list(ev.items())[l]
                 final="\n**"
                 if(len(c[1])==1):
-                    final += format(c[1][0], True) + "       | " + c[0]
+                    final += getDay(c[1][0]) + " " + format(c[1][0], True) + "       | " + c[0]
                 else:
                     final += getDay(c[1][0]) + " " + format(c[1][0])+"-"+format(c[1][1], True) + " | " + c[0]
                     
