@@ -30,8 +30,8 @@ client.roledict2 = {"🤖": "AI/Machine Learning", "🌐": "Web Development",
 for cog in ['cogs.events', 'cogs.commands']:
     try:
         client.load_extension(cog)
-    except e:
-        print(f'Could not load cog {cog} for reason:{e}')
+    except:
+        print(f'Could not load cog {cog}')
 
 # run client
 client.run(TOKEN)

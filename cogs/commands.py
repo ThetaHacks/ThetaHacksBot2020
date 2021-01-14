@@ -3,7 +3,7 @@ import discord
 import random
 import time
 import datetime
-import pytz import timezone
+from pytz import timezone
 
 
 class CommandsCog(commands.Cog):
