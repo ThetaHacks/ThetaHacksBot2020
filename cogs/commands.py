@@ -13,11 +13,8 @@ class CommandsCog(commands.Cog):
     @commands.command(name="events")
     async def events(self, ctx):
         def format(d, e=False):
-            if e:
-                date_format='%I:%M %p'
-            else:
-                date_format='%I:%M'
-            #d = datetime.datetime(2021, 1, 15, 21, 0)
+            date_format='%H:%M'
+
             return d.strftime(date_format)
             
         def getDay(d):
@@ -51,42 +48,38 @@ class CommandsCog(commands.Cog):
             days[getDay(t[0])][e]=t
             
 
-        final = "**Zoom link:** https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09\nAll times are in PST\n\n"
+        final = "**Zoom link:** https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09\n\nAll times are in PST\n\n"
         final += "**1/15**\n"
         for e, t in days[0].items():
-            final += "`"
             if(len(t)==1):
                 final += format(t[0], True) + "       | " + e 
             else:
                 final += format(t[0])+"-"+format(t[1], True) + " | " + e
-            final += "`\n"
+            final += "\n"
             
         final += "\n"
 
         final += "**1/16**\n"
         for e, t in days[1].items():
-            final += "`"
             final += format(t[0])+"-"+format(t[1], True) + " | " + e
-            final += "`\n"
+            final += "\n"
             
         final += "\n"
 
         final += "**1/17**\n"
         for e, t in days[2].items():
-            final += "`"
             final += format(t[0])+"-"+format(t[1], True) + " | " + e
-            final += "`\n"
+            final += "\n"
             
         final += "\n"
 
         final += "**1/18**\n"
         for e, t in days[3].items():
-            final += "`"
             if(len(t)==1):
                 final += format(t[0], True) + "       | " + e 
             else:
                 final += format(t[0])+"-"+format(t[1], True) + " | " + e
-            final += "`\n"
+            final += "\n"
         
         
             
