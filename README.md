@@ -1,7 +1,7 @@
 # ThetaHacksBot
 
 **The official bot for the ThetaHacks Discord Server**<br>
-Made by **[Andy Li](https://github.com/andyli23)** with discord.py<br><br>
+Made by **[Andy Li](https://github.com/andyli23)** with discord.py, with help from [Tejas Agarwal](https://github.com/tejasag)<br><br>
 Dependencies: os, discord, dotenv, discord.py, random
 
 ## Valid commands:
