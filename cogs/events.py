@@ -129,7 +129,7 @@ class EventsCog(commands.Cog):
 
                 # CLEAR
 
-                if temp[1] == "clear":
+                elif temp[1] == "clear":
                     # if no arguments
                     if len(temp) == 2:
                         await message.channel.send("Invalid arguments for command `clear`.")
@@ -164,7 +164,7 @@ class EventsCog(commands.Cog):
 
                 # KICK
 
-                if temp[1] == "kick":
+                elif temp[1] == "kick":
                     # if no user provided
                     if len(temp) == 2:
                         await message.channel.send("Invalid arguments for command `kick`.")
@@ -226,7 +226,7 @@ class EventsCog(commands.Cog):
 
                 # BAN
 
-                if temp[1] == "ban":
+                elif temp[1] == "ban":
                     # no user provided
                     if len(temp) == 2:
                         await message.channel.send("Invalid arguments for command `ban`.")
@@ -279,7 +279,7 @@ class EventsCog(commands.Cog):
                                 await message.author.guild.ban(user=u)
                                 await message.channel.send(embed=embed)
 
-                if temp[1] == "top":
+                elif temp[1] == "top":
                     d = {}
                     msg = []
 
