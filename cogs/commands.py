@@ -28,7 +28,7 @@ class CommandsCog(commands.Cog):
         tz_pst = pytz.timezone('US/Pacific')
         now = datetime.datetime.now(tz_pst).replace(tzinfo=None)
         ev = {
-            "Hacking Starts":(datetime.datetime(2021, 1, 15, 12, 0),),
+            "Hacking Starts":(datetime.datetime(2021, 1, 15, 0, 0),),
             "Among Us Hype Night":(datetime.datetime(2021, 1, 15, 21, 0),datetime.datetime(2021, 1, 15, 23, 0)),
             
             "Opening Ceremony, Team Mixer":(datetime.datetime(2021, 1, 16, 10, 0),datetime.datetime(2021, 1, 16, 11, 30)),
