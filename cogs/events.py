@@ -376,11 +376,14 @@ class EventsCog(commands.Cog):
                     title="Welcome", description="Welcome to the `Official ThetaHacks Server`, %s! Sign up for the hackathon at https://thetahacks.tech/signup" % member.mention, color=0xff00d1)
                 await channel.send(embed=embed)
 
+                try:
                 # send in DMs
-                embed = discord.Embed(
-                    title="Welcome", description="Hello %s, welcome to the `Official ThetaHacks Server`! Sign up for the hackathon at https://thetahacks.tech/signup, join \
-                        the Devpost at https://thetahacks.devpost.com, and sign up for events at https://thetahacks.tech/events!" % member.mention, color=0xff00d1)
-                await member.send(embed=embed)
+                    embed = discord.Embed(
+                        title="Welcome", description="Hello %s, welcome to the `Official ThetaHacks Server`! Sign up for the hackathon at https://thetahacks.tech/signup, join \
+                            the Devpost at https://thetahacks.devpost.com, and sign up for events at https://thetahacks.tech/events!" % member.mention, color=0xff00d1)
+                    await member.send(embed=embed)
+                except:
+                    pass
 
                 role = get(member.guild.roles, name="Attendees")
                 while role not in member.roles:
@@ -388,8 +391,11 @@ class EventsCog(commands.Cog):
                         await member.add_roles(role)
                     except:
                         pass
-
-                await member.send("The `Attendee` role has been given to you.")
+                
+                try:
+                    await member.send("The `Attendee` role has been given to you.")
+                except:
+                    pass
                 break
 
 
