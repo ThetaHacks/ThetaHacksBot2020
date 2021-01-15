@@ -54,7 +54,7 @@ class CommandsCog(commands.Cog):
                 if t[0] < now and t[1] > now:
                     print('cur')
                     embed = discord.Embed(
-                        title="Current Event", description="\n**" + getDay(t[0]) + " " + format(t[0])+"-"+format(t[1], True) + " | " + e + "**\n\nZoom link: https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09", color=0x00ff9d)
+                        title="Current Event", description="\n**" + getDay(t[0]) + " " + format(t[0])+"-"+format(t[1], True) + " | " + e + "**\n\nZoom link: https://thetahacks.tech/zoom", color=0x00ff9d)
                     await ctx.send(embed=embed) 
                     return 0
 
@@ -69,7 +69,7 @@ class CommandsCog(commands.Cog):
                 else:
                     final += getDay(c[1][0]) + " " + format(c[1][0])+"-"+format(c[1][1], True) + " | " + c[0]
                     
-                final += "**\n\nZoom link: https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09"
+                final += "**\n\nZoom link: https://thetahacks.tech/zoom"
                 embed = discord.Embed(
                     title="Next Event", description=final, color=0x00ff9d)
                 await ctx.send(embed=embed) 
@@ -151,7 +151,7 @@ class CommandsCog(commands.Cog):
                 final += format(t[0])+"-"+format(t[1], True) + " | " + e
             final += "\n"
         
-        final += "\n\n**Zoom link:** https://hackclub.zoom.us/j/91706915393?pwd=V25rOFl3NlFTcy9SQWxmMUNsQks1UT09\n\nAll times are in PST"
+        final += "\n\n**Zoom link:** https://thetahacks.tech/zoom\n\nAll times are in PST"
             
         embed = discord.Embed(
             title="Events", description=final, color=0x00ff9d)
