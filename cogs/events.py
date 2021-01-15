@@ -383,7 +383,11 @@ class EventsCog(commands.Cog):
                 await member.send(embed=embed)
 
                 role = get(member.guild.roles, name="Attendees")
-                await member.add_roles(role)
+                while role not in member.roles:
+                    try:
+                        await member.add_roles(role)
+                    except:
+                        pass
 
                 await member.send("The `Attendee` role has been given to you.")
                 break
