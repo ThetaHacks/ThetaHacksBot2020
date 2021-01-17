@@ -331,6 +331,7 @@ class EventsCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
+        print("REaction added")
         client = self.bot
         ####### VERIFY WITH REACTION #######
         #
