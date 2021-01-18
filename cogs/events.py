@@ -452,5 +452,5 @@ class EventsCog(commands.Cog):
                 break
 
 
-    def setup(bot):
-        bot.add_cog(EventsCog(bot))
+def setup(bot):
+    bot.add_cog(EventsCog(bot))
