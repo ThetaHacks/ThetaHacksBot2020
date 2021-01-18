@@ -304,6 +304,29 @@ class EventsCog(commands.Cog):
 
                     with open('d.txt', 'rb') as f:
                         await message.channel.send(file=discord.File(f, 'd.txt'))
+                
+                elif temp[1] == "raffle":
+                    roleName = "Crewmate"
+                    role = discord.utils.get(message.guild.roles, name=roleName)
+                    i = 0
+                    # server = ctx.message.guild
+                    empty = True
+                    randomRaffle = 0
+                    randomRaffle = randrange(21)
+                    if role is None:
+                        await message.channel.send(f'There is no {roleName} role on this server!')
+                        return
+                    for member in message.guild.members:
+                        if role in member.roles:
+                            i+=1
+                            if (i == randomRaffle):
+                                await message.channel.send("<@!{0.id}>".format(member))
+                            else:
+                                await message.channel.send(f"No User at {randomRaffle}")
+
+                            empty = False
+                    if empty:
+                        await message.channel.send(f"Nobody has the role {roleName}".format(role.mention))
 
                 elif temp[1] == "raffle":
                     roleName = "Crewmate"

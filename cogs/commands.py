@@ -46,8 +46,8 @@ class CommandsCog(commands.Cog):
             "Minecraft Hunger Games":(datetime.datetime(2021, 1, 17, 20, 30),datetime.datetime(2021, 1, 17, 23, 0)),
 
             "Hacking Ends":(datetime.datetime(2021, 1, 18, 8, 0),),
-            "Judging":(datetime.datetime(2021, 1, 18, 8, 0),datetime.datetime(2021, 1, 18, 10, 0)),
-            "Closing/Awards Ceremony":(datetime.datetime(2021, 1, 18, 10, 0),datetime.datetime(2021, 1, 18, 1, 0))}
+            "Judging":(datetime.datetime(2021, 1, 18, 8, 0),datetime.datetime(2021, 1, 18, 10, 30)),
+            "Closing/Awards Ceremony":(datetime.datetime(2021, 1, 18, 11, 0),datetime.datetime(2021, 1, 18, 12, 0))}
 
         for e,t in ev.items():
             if len(t) == 2:
@@ -110,8 +110,8 @@ class CommandsCog(commands.Cog):
             "Minecraft Hunger Games":(datetime.datetime(2021, 1, 17, 20, 30),datetime.datetime(2021, 1, 17, 23, 00)),
 
             "Hacking Ends":(datetime.datetime(2021, 1, 18, 8, 0),),
-            "Judging":(datetime.datetime(2021, 1, 18, 8, 0),datetime.datetime(2021, 1, 18, 10, 0)),
-            "Closing/Awards Ceremony":(datetime.datetime(2021, 1, 18, 10, 0),datetime.datetime(2021, 1, 18, 1, 00))}
+            "Judging":(datetime.datetime(2021, 1, 18, 8, 0),datetime.datetime(2021, 1, 18, 10, 30)),
+            "Closing/Awards Ceremony":(datetime.datetime(2021, 1, 18, 11, 0),datetime.datetime(2021, 1, 18, 12, 00))}
 
         days = [{},{},{},{}]
         for e, t in ev.items():
