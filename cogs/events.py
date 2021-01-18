@@ -7,6 +7,7 @@ import random
 
 class EventsCog(commands.Cog):
     def __init__(self, bot):
+        print("hi")
         self.bot = bot
 
     @commands.Cog.listener()
@@ -430,4 +431,5 @@ class EventsCog(commands.Cog):
 
 
 def setup(bot):
+    print("hi2")
     bot.add_cog(EventsCog(bot))
