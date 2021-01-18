@@ -261,12 +261,12 @@ class CommandsCog(commands.Cog):
 
     @commands.command(name="raffle")
     async def raffle(self, ctx):
-        roleName = "Crewmate"
+        roleName = "Attendees"
         role = discord.utils.get(message.guild.roles, name=roleName)
         i = 0
         empty = True
         randomRaffle = 0
-        randomRaffle = randrange(21)
+        randomRaffle = randrange(494)
         if role is None:
             await message.channel.send(f'There is no {roleName} role on this server!')
             return
