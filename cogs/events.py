@@ -304,7 +304,7 @@ class EventsCog(commands.Cog):
 
                     with open('d.txt', 'rb') as f:
                         await message.channel.send(file=discord.File(f, 'd.txt'))
-                
+
                 elif temp[1] == "raffle":
                     roleName = "Crewmate"
                     role = discord.utils.get(message.guild.roles, name=roleName)
