@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from discord.utils import get
 import random
+from random import randrange
 
 
 class EventsCog(commands.Cog):
