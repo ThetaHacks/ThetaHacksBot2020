@@ -12,25 +12,25 @@ class CommandsCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.bot.remove_command('help')
-        
+
     @commands.command(name="next")
     async def next(self, ctx):
         def format(d, e=False):
             date_format='%H:%M'
 
             return d.strftime(date_format)
-        
+
         def getDay(d):
             date_format='%m/%d'
 
             return d.strftime(date_format)
-        
+
         tz_pst = pytz.timezone('US/Pacific')
         now = datetime.datetime.now(tz_pst).replace(tzinfo=None)
         ev = {
             "Hacking Starts":(datetime.datetime(2021, 1, 15, 0, 0),),
             "Among Us Hype Night":(datetime.datetime(2021, 1, 15, 21, 0),datetime.datetime(2021, 1, 15, 23, 0)),
-            
+
             "Opening Ceremony, Team Mixer":(datetime.datetime(2021, 1, 16, 10, 0),datetime.datetime(2021, 1, 16, 11, 30)),
             "Alon Grinshpoon - Intro to AR (Workshop)":(datetime.datetime(2021, 1, 16, 12, 0),datetime.datetime(2021, 1, 16, 13, 00)),
             "Rohan Bansal - Electronics and the C Language (Workshop)":(datetime.datetime(2021, 1, 16, 14, 0),datetime.datetime(2021, 1, 16, 15, 0)),
@@ -38,63 +38,63 @@ class CommandsCog(commands.Cog):
             "Aldrin Brillante - Emoji Prediction (Workshop)":(datetime.datetime(2021, 1, 16, 18, 0),datetime.datetime(2021, 1, 16, 19, 0)),
             "Ivy Xu - Journey to Entrepreneurship (Speaker)":(datetime.datetime(2021, 1, 16, 20, 0),datetime.datetime(2021, 1, 16, 21, 0)),
             "Among Us Game Night":(datetime.datetime(2021, 1, 16, 21, 30),datetime.datetime(2021, 1, 17, 0, 0)),
-            
+
             "Mr. John Smale - Building a CS Resume (Speaker)":(datetime.datetime(2021, 1, 17, 10, 0),datetime.datetime(2021, 1, 17, 11, 00)),
             "Mr. Chris Fairley - CAD with Fusion 360 (Workshop)":(datetime.datetime(2021, 1, 17, 14, 0),datetime.datetime(2021, 1, 17, 15, 00)),
             "Steven Puri (Speaker)":(datetime.datetime(2021, 1, 17, 16, 0),datetime.datetime(2021, 1, 17, 17, 00)),
             "Anshul Gupta - Intro to Web Dev (Workshop)":(datetime.datetime(2021, 1, 17, 18, 0),datetime.datetime(2021, 1, 17, 19, 00)),
             "Minecraft Hunger Games":(datetime.datetime(2021, 1, 17, 20, 30),datetime.datetime(2021, 1, 17, 23, 0)),
-            
+
             "Hacking Ends":(datetime.datetime(2021, 1, 18, 8, 0),),
             "Judging":(datetime.datetime(2021, 1, 18, 8, 0),datetime.datetime(2021, 1, 18, 10, 0)),
             "Closing/Awards Ceremony":(datetime.datetime(2021, 1, 18, 10, 0),datetime.datetime(2021, 1, 18, 1, 0))}
-        
+
         for e,t in ev.items():
             if len(t) == 2:
                 if t[0] < now and t[1] > now:
                     print('cur')
                     embed = discord.Embed(
                         title="Current Event", description="\n**" + getDay(t[0]) + " " + format(t[0])+"-"+format(t[1], True) + " | " + e + "**\n\nZoom link: https://thetahacks.tech/zoom", color=0x00ff9d)
-                    await ctx.send(embed=embed) 
+                    await ctx.send(embed=embed)
                     return 0
 
         l=-1
         for e,t in ev.items():
             l+=1
-            if t[0] > now:      
+            if t[0] > now:
                 c = list(ev.items())[l]
                 final="\n**"
                 if(len(c[1])==1):
                     final += getDay(c[1][0]) + " " + format(c[1][0], True) + "       | " + c[0]
                 else:
                     final += getDay(c[1][0]) + " " + format(c[1][0])+"-"+format(c[1][1], True) + " | " + c[0]
-                    
+
                 final += "**\n\nZoom link: https://thetahacks.tech/zoom"
                 embed = discord.Embed(
                     title="Next Event", description=final, color=0x00ff9d)
-                await ctx.send(embed=embed) 
+                await ctx.send(embed=embed)
                 return 0
-        
+
         embed = discord.Embed(
             title="ThetaHacks I has ended.", description="", color=0x00ff9d)
-        await ctx.send(embed=embed) 
+        await ctx.send(embed=embed)
         return 0
-                
-        
+
+
     @commands.command(name="events")
     async def events(self, ctx):
         def format(d, e=False):
             date_format='%H:%M'
 
             return d.strftime(date_format)
-            
+
         def getDay(d):
             return int(d.strftime("%d"))-15
 
 
         ev = {"Hacking Starts":(datetime.datetime(2021, 1, 15, 0, 0),),
             "Among Us Hype Night":(datetime.datetime(2021, 1, 15, 21, 0),datetime.datetime(2021, 1, 15, 23, 0)),
-            
+
             "Opening Ceremony, Team Mixer":(datetime.datetime(2021, 1, 16, 10, 0),datetime.datetime(2021, 1, 16, 11, 30)),
             "Alon Grinshpoon - Intro to AR (Workshop)":(datetime.datetime(2021, 1, 16, 12, 0),datetime.datetime(2021, 1, 16, 13, 00)),
             "Rohan Bansal - Electronics and the C Language (Workshop)":(datetime.datetime(2021, 1, 16, 14, 0),datetime.datetime(2021, 1, 16, 15, 00)),
@@ -102,13 +102,13 @@ class CommandsCog(commands.Cog):
             "Aldrin Brillante - Emoji Prediction (Workshop)":(datetime.datetime(2021, 1, 16, 18, 0),datetime.datetime(2021, 1, 16, 19, 00)),
             "Ivy Xu - Journey to Entrepreneurship (Speaker)":(datetime.datetime(2021, 1, 16, 20, 0),datetime.datetime(2021, 1, 16, 21, 00)),
             "Among Us Game Night":(datetime.datetime(2021, 1, 16, 21, 30),datetime.datetime(2021, 1, 17, 0, 0)),
-            
+
             "Mr. John Smale - Building a CS Resume (Speaker)":(datetime.datetime(2021, 1, 17, 10, 0),datetime.datetime(2021, 1, 17, 11, 00)),
             "Mr. Chris Fairley - CAD with Fusion 360 (Workshop)":(datetime.datetime(2021, 1, 17, 14, 0),datetime.datetime(2021, 1, 17, 15, 00)),
             "Steven Puri (Speaker)":(datetime.datetime(2021, 1, 17, 16, 0),datetime.datetime(2021, 1, 17, 17, 00)),
             "Anshul Gupta - Intro to Web Dev (Workshop)":(datetime.datetime(2021, 1, 17, 18, 0),datetime.datetime(2021, 1, 17, 19, 00)),
             "Minecraft Hunger Games":(datetime.datetime(2021, 1, 17, 20, 30),datetime.datetime(2021, 1, 17, 23, 00)),
-            
+
             "Hacking Ends":(datetime.datetime(2021, 1, 18, 8, 0),),
             "Judging":(datetime.datetime(2021, 1, 18, 8, 0),datetime.datetime(2021, 1, 18, 10, 0)),
             "Closing/Awards Ceremony":(datetime.datetime(2021, 1, 18, 10, 0),datetime.datetime(2021, 1, 18, 1, 00))}
@@ -116,43 +116,43 @@ class CommandsCog(commands.Cog):
         days = [{},{},{},{}]
         for e, t in ev.items():
             days[getDay(t[0])][e]=t
-            
 
-        
+
+
         final = "**——1/15——**\n"
         for e, t in days[0].items():
             if(len(t)==1):
-                final += format(t[0], True) + "       | " + e 
+                final += format(t[0], True) + "       | " + e
             else:
                 final += format(t[0])+"-"+format(t[1], True) + " | " + e
             final += "\n"
-            
+
         final += "\n"
 
         final += "**——1/16——**\n"
         for e, t in days[1].items():
             final += format(t[0])+"-"+format(t[1], True) + " | " + e
             final += "\n"
-            
+
         final += "\n"
 
         final += "**——1/17——**\n"
         for e, t in days[2].items():
             final += format(t[0])+"-"+format(t[1], True) + " | " + e
             final += "\n"
-            
+
         final += "\n"
 
         final += "**——1/18——**\n"
         for e, t in days[3].items():
             if(len(t)==1):
-                final += format(t[0], True) + "       | " + e 
+                final += format(t[0], True) + "       | " + e
             else:
                 final += format(t[0])+"-"+format(t[1], True) + " | " + e
             final += "\n"
-        
+
         final += "\n\n**Zoom link:** https://thetahacks.tech/zoom\n\nAll times are in PST"
-            
+
         embed = discord.Embed(
             title="Events", description=final, color=0x00ff9d)
         await ctx.send(embed=embed)
@@ -250,7 +250,15 @@ class CommandsCog(commands.Cog):
         embed = discord.Embed(
             title="ThetaHacks Stats", description=text, color=0x00ff9d)
         await ctx.send(embed=embed)
-    
+
+    @commands.command(name="ping")
+    async def ping(self, ctx):
+        start = time.perf_counter()
+        message = await ctx.send("Ping...")
+        end = time.perf_counter()
+        duration = (end - start) * 1000
+        await message.edit(content='Pong! {:.2f}ms'.format(duration))
+
 
 def setup(bot):
     bot.add_cog(CommandsCog(bot))
