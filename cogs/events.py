@@ -51,48 +51,48 @@ class EventsCog(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         client = self.bot
-        # if not client.sent:
-        #     client.sent = True
+        if not client.sent:
+            client.sent = True
 
-        #     text = "Available Roles:\n\n" + "\n".join(v + ": " + str(
-        #         k) for k, v in client.roledict2.items()) + "\n\n**Unreact to remove a role.**"
-        #     embed2 = discord.Embed(
-        #         title="Get Topic Roles", description=text, color=0x0000ff)
+            text = "Available Roles:\n\n" + "\n".join(v + ": " + str(
+                k) for k, v in client.roledict2.items()) + "\n\n**Unreact to remove a role.**"
+            embed2 = discord.Embed(
+                title="Get Topic Roles", description=text, color=0x0000ff)
 
-        #     channel2 = get(message.author.guild.text_channels,
-        #                    name="get-roles")
+            channel2 = get(message.author.guild.text_channels,
+                           name="get-roles")
 
-        #     msg2 = await channel2.send(embed=embed2)
+            msg2 = await channel2.send(embed=embed2)
 
-        #     # store message in variable (check line 394)
-        #     client.v4 = str(msg2.id)
+            # store message in variable (check line 394)
+            client.v4 = str(msg2.id)
 
-        #     for key in client.roledict2.keys():
-        #         await msg2.add_reaction(key)
+            for key in client.roledict2.keys():
+                await msg2.add_reaction(key)
 
-        #     text = "Available Roles:\n\n" + "\n".join(v + ": " + str(
-        #         k) for k, v in client.roledict.items()) + "\n\n**Unreact to remove a role.**"
+            text = "Available Roles:\n\n" + "\n".join(v + ": " + str(
+                k) for k, v in client.roledict.items()) + "\n\n**Unreact to remove a role.**"
 
-        #     embed2 = discord.Embed(
-        #         title="Get Language Roles", description=text, color=0x00ff00)
+            embed2 = discord.Embed(
+                title="Get Language Roles", description=text, color=0x00ff00)
 
-        #     channel2 = get(message.author.guild.text_channels,
-        #                    name="get-roles")
+            channel2 = get(message.author.guild.text_channels,
+                           name="get-roles")
 
-        #     msg2 = await channel2.send(embed=embed2)
+            msg2 = await channel2.send(embed=embed2)
 
-        #     # store message in variable (check line 394)
-        #     client.v2 = str(msg2.id)
+            # store message in variable (check line 394)
+            client.v2 = str(msg2.id)
 
-        #     for key in client.roledict.keys():
-        #         print(key)
-        #         await msg2.add_reaction(key)
+            for key in client.roledict.keys():
+                print(key)
+                await msg2.add_reaction(key)
 
-        #     if message.author == client.user:
-        #         return
+            if message.author == client.user:
+                return
 
-        # if "".join([i for i in message.content.lower() if i != " "]) in ('hi', 'hello', 'hola'):
-        #     await message.channel.send("Hello %s!" % message.author.display_name)
+        if "".join([i for i in message.content.lower() if i != " "]) in ('hi', 'hello', 'hola'):
+            await message.channel.send("Hello %s!" % message.author.display_name)
 
         if message.content.lower().strip().split(" ")[0] == "sudo":
             # admin/mod.bot role variable
