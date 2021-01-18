@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from discord.utils import get
 from random import randrange
+import random
 
 
 class EventsCog(commands.Cog):
@@ -451,5 +452,5 @@ class EventsCog(commands.Cog):
                 break
 
 
-def setup(bot):
-    bot.add_cog(EventsCog(bot))
+    def setup(bot):
+        bot.add_cog(EventsCog(bot))
