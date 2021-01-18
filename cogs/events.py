@@ -336,13 +336,13 @@ class EventsCog(commands.Cog):
                     # server = ctx.message.guild
                     empty = True
                     randomRaffle = 0
-                    randomRaffle = randrange(21)
+                    randomRaffle = int(randrange(21))
                     if role is None:
                         await message.channel.send(f'There is no {roleName} role on this server!')
                         return
                     for member in message.guild.members:
+                        i+=1
                         if role in member.roles:
-                            i+=1
                             if (i == randomRaffle):
                                 await message.channel.send("<@!{0.id}>".format(member))
                             else:
