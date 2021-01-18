@@ -281,20 +281,19 @@ class EventsCog(commands.Cog):
 
                 elif temp[1] == "top":
                     d = {}
-                    msg = []
 
                     for channel in client.guilds[0].text_channels:
-                        await message.channel.send("Parsing " + channel.name)
+                        try:
+                            await message.channel.send("Parsing " + channel.name)
 
-                        # create list of all messages in channel history
-                        async for x in channel.history(limit=10000000000000000):
-                            msg.append(x)
-
-                    for m in msg:
-                        if m.author.display_name in d:
-                            d[m.author.display_name] += 1
-                        else:
-                            d[m.author.display_name] = 1
+                            # create list of all messages in channel history
+                            async for m in channel.history(limit=10000000000000000):
+                                if m.author.display_name in d:
+                                    d[m.author.display_name] += 1
+                                else:
+                                    d[m.author.display_name] = 1
+                        except:
+                            pass
 
                     d = {k: v for k, v in sorted(
                         d.items(), key=lambda item: item[1], reverse=True)}
