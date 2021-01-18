@@ -259,6 +259,28 @@ class CommandsCog(commands.Cog):
         duration = (end - start) * 1000
         await message.edit(content='Pong! {:.2f}ms'.format(duration))
 
+    @commands.command(name="raffle")
+    async def raffle(self, ctx):
+        roleName = "Crewmate"
+        role = discord.utils.get(message.guild.roles, name=roleName)
+        i = 0
+        empty = True
+        randomRaffle = 0
+        randomRaffle = randrange(21)
+        if role is None:
+            await message.channel.send(f'There is no {roleName} role on this server!')
+            return
+            for member in message.guild.members:
+                if role in member.roles:
+                    i+=1
+                    if (i == randomRaffle):
+                        await message.channel.send("{0.name}".format(member))
+                    else:
+                        await message.channel.send(f"No User at {randomRaffle}")
+                    empty = False
+                    if empty:
+                        await message.channel.send(f"Nobody has the role {roleName}".format(role.mention))
+
 
 def setup(bot):
     bot.add_cog(CommandsCog(bot))
