@@ -1,3 +1,8 @@
+###########################################################################
+#           This is a modified version of a cog made by 6days9weeks       #
+#                https://github.com/6days9weeks/pingpanapeng              #
+###########################################################################
+
 import discord
 from discord.ext import commands
 import nekos
