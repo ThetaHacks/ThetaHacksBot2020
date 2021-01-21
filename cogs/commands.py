@@ -76,7 +76,7 @@ class CommandsCog(commands.Cog):
                 return 0
 
         embed = discord.Embed(
-            title="ThetaHacks I has ended.", description="", color=0x00ff9d)
+            title="ThetaHacks Virtual has ended.", description="", color=0x00ff9d)
         await ctx.send(embed=embed)
         return 0
 
@@ -154,23 +154,38 @@ class CommandsCog(commands.Cog):
         final += "\n\n**Zoom link:** https://thetahacks.tech/zoom\n\nAll times are in PST"
 
         embed = discord.Embed(
-            title="Events", description=final, color=0x00ff9d)
+            title="ThetaHacks Virtual has ended.", description="", color=0x00ff9d)
         await ctx.send(embed=embed)
 
     @commands.command(name="signup")
     async def signup(self, ctx):
         embed = discord.Embed(
-            title="Sign Up", description="Go to https://thetahacks.tech/signup to sign up. Be sure to register by January 15, 2021! \
-                Also don't forget to sign up on Devpost at https://thetahacks.devpost.com and for events at https://thetahacks.tech/events.", color=0xb134eb)
+            title="Sign Up", description="Signups for the next event coming soon!", color=0xb134eb)
         await ctx.send(embed=embed)
+        
+    @commands.command(name="raffle")
+    async def raffle(self, ctx, roleName):
+        role = discord.utils.get(ctx.guild.roles, name=roleName)
+        i = 0
+        # server = ctx.message.guild
+        empty = True
+        
+        l = len([member for member in ctx.guild.members if role in member.roles])
+        
+        randomRaffle = int(randrange(l))
+        
+        if role is None:
+            await ctx.send('There is no such role on this server!')
+            return
+        if l == 0:
+            await message.channel.send("Nobody has the role.")
+            return
+        await ctx.send([member for member in ctx.guild.members if role in member.roles][randomRaffle].name)
 
     @commands.command(name="info")
     async def info(self, ctx):
         embed = discord.Embed(
-            title="Information", description="ThetaHacks is a 24-hour virtual High-School Hackathon occurring from January 15-18, 2021. \
-                What better way to start off your winter break with free merch, coding workshops, and a community of developers to talk with! \
-                    We have awards from our sponsors ranging from awesome tech to free t-shirts & more! Anyone from any background of coding is \
-                        welcome to join. \n\nLinks:\nMore info and signups on our website: https://thetahacks.tech \n Devpost: https://thetahacks.devpost.com", color=0xc0e8f9)
+            title="Information", description="The original ThetaHacks Virtual occurred from Jan. 15-18, 2021. But now, ThetaHacks is becoming something bigger... Stay tuned for more info! \n\nLinks:\nMore info and signups on our website: https://thetahacks.tech \n Devpost: https://thetahacks.devpost.com", color=0xc0e8f9)
         await ctx.send(embed=embed)
 
     @commands.command(name="ping")
