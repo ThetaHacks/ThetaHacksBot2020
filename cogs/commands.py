@@ -173,10 +173,10 @@ class CommandsCog(commands.Cog):
     
         
         if role is None:
-            await message.channel.send('There is no such role on this server!')
+            await ctx.send('There is no such role on this server!')
             return
         if l == 0:
-            await message.channel.send("Nobody has the role.")
+            await ctx.send("Nobody has the role.")
             return
         
         randomRaffle = int(randrange(l))
