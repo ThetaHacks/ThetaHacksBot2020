@@ -308,27 +308,6 @@ class EventsCog(commands.Cog):
                         await message.channel.send(file=discord.File(f, 'd.txt'))
 
 
-                elif temp[1] == "raffle":
-                    try:
-                        roleName = temp[2]
-                    except:
-                        message.channel.send("Invalid arguments for command `raffle`")
-                    role = discord.utils.get(message.guild.roles, name=roleName)
-                    l = len([member for member in message.guild.members if role in member.roles])
-        
-                
-                    
-                    if role is None:
-                        await message.channel.send('There is no such role on this server!')
-                        return
-                    if l == 0:
-                        await message.channel.send("Nobody has the role.")
-                        return
-                    
-                    randomRaffle = int(randrange(l))
-                    
-                    await message.channel.send([member for member in message.guild.members if role in member.roles][randomRaffle].display_name)
-
             else:
                 # if message author is not not admin/mod/bot
                 await message.channel.send("{} is not in the sudoers file. This incident will be reported.".format(
