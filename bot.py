@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from discord.utils import get
 from discord.ext import commands
 import random
+import jishaku
 
 # get tokens as environment variables (for security)
 
@@ -26,7 +27,7 @@ client.roledict = {}
 client.roledict2 = {"🤖": "AI/Machine Learning", "🌐": "Web Development",
                     "🎮": "Game Design", "📈": "Data Science", "🔎": "Algorithms"}
 
-for cog in ['cogs.events', 'cogs.commands']:
+for cog in ['cogs.events', 'cogs.commands', 'cogs.actions', 'jishaku']:
     try:
         client.load_extension(cog)
     except:

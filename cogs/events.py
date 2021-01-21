@@ -6,6 +6,7 @@ from random import randrange
 
 class EventsCog(commands.Cog):
     def __init__(self, bot):
+        print("hi")
         self.bot = bot
 
     @commands.Cog.listener()
@@ -366,6 +367,7 @@ class EventsCog(commands.Cog):
         #
         #
         ####### VERIFY WITH REACTION #######
+
         try:
             if str(reaction.message.id) == client.v2:
                 if reaction.emoji in client.roledict.keys():
@@ -402,14 +404,13 @@ class EventsCog(commands.Cog):
             if channel.name == 'welcome':
                 # send to welcome channel
                 embed = discord.Embed(
-                    title="Welcome", description="Welcome to the `Official ThetaHacks Server`, %s! Sign up for the hackathon at https://thetahacks.tech/signup" % member.mention, color=0xff00d1)
+                    title="Welcome", description="Welcome to the `Official ThetaHacks Server`, %s! The next ThetaHacks is in the works, stay tuned for more info!" % member.mention, color=0xff00d1)
                 await channel.send(embed=embed)
 
                 try:
                 # send in DMs
                     embed = discord.Embed(
-                        title="Welcome", description="Hello %s, welcome to the `Official ThetaHacks Server`! Sign up for the hackathon at https://thetahacks.tech/signup, join \
-                            the Devpost at https://thetahacks.devpost.com, and sign up for events at https://thetahacks.tech/events!" % member.mention, color=0xff00d1)
+                        title="Welcome", description="Hello %s, welcome to the `Official ThetaHacks Server`! The next ThetaHacks is in the works, stay tuned for more info!" % member.mention, color=0xff00d1)
                     await member.send(embed=embed)
                 except:
                     pass
@@ -429,4 +430,5 @@ class EventsCog(commands.Cog):
 
 
 def setup(bot):
+    print("hi2")
     bot.add_cog(EventsCog(bot))
