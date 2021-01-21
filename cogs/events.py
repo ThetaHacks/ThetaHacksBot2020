@@ -309,32 +309,22 @@ class EventsCog(commands.Cog):
 
 
                 elif temp[1] == "raffle":
-                    roleName = "Crewmate"
+                    try:
+                        roleName = temp[2]
+                    except:
+                        message.channel.send("Invalid arguments for command `raffle`")
                     role = discord.utils.get(message.guild.roles, name=roleName)
-                    i = 0
-                    # server = ctx.message.guild
-                    empty = True
-                    randomRaffle = int(randrange(21))
+                    l = len([member for member in message.guild.members if role in member.roles])
+        
+                    randomRaffle = int(randrange(l))
                     
                     if role is None:
-                        await message.channel.send(f'There is no {roleName} role on this server!')
+                        await message.channel.send('There is no such role on this server!')
                         return
-                    for member in message.guild.members:
-                        if role in member.roles:
-                            if (i == randomRaffle):
-                                await message.channel.send("<@!{0.id}>".format(member))
-                                return
-                            i+=1
-
-                            empty = False
-                    if empty:
-                        await message.channel.send(f"Nobody has the role {roleName}".format(role.mention))
-                    # members = client.guilds[0].roles = role
-                    # random rand = 0,members.length
-                    # for user in members:
-                        # i++
-                        # if (i == random):
-                            # await message.channel.send("")
+                    if l == 0:
+                        await message.channel.send("Nobody has the role.")
+                        return
+                    await message.channel.send([member for member in message.guild.members if role in member.roles][randomRaffle].display_name)
 
             else:
                 # if message author is not not admin/mod/bot

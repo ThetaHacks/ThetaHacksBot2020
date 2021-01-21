@@ -167,9 +167,6 @@ class CommandsCog(commands.Cog):
     @commands.command(name="raffle")
     async def raffle(self, ctx, roleName):
         role = discord.utils.get(ctx.guild.roles, name=roleName)
-        i = 0
-        # server = ctx.message.guild
-        empty = True
         
         l = len([member for member in ctx.guild.members if role in member.roles])
         
@@ -181,7 +178,7 @@ class CommandsCog(commands.Cog):
         if l == 0:
             await message.channel.send("Nobody has the role.")
             return
-        await ctx.send([member for member in ctx.guild.members if role in member.roles][randomRaffle].name)
+        await ctx.send([member for member in ctx.guild.members if role in member.roles][randomRaffle].display_name)
 
     @commands.command(name="info")
     async def info(self, ctx):
@@ -247,7 +244,7 @@ class CommandsCog(commands.Cog):
         this_msg = random.choice(kill_messages)
 
         embed = discord.Embed(
-            title="K-O!", description="%s was %s by %s" % (member.name, this_msg, ctx.author.name), color=0xff00d1)
+            title="K-O!", description="%s was %s by %s" % (member.display_name, this_msg, ctx.author.display_name), color=0xff00d1)
         await ctx.send(embed=embed)
 
     @commands.command(name="stats")
