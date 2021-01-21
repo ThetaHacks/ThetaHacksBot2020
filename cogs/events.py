@@ -316,7 +316,7 @@ class EventsCog(commands.Cog):
                     role = discord.utils.get(message.guild.roles, name=roleName)
                     l = len([member for member in message.guild.members if role in member.roles])
         
-                    randomRaffle = int(randrange(l))
+                
                     
                     if role is None:
                         await message.channel.send('There is no such role on this server!')
@@ -324,6 +324,9 @@ class EventsCog(commands.Cog):
                     if l == 0:
                         await message.channel.send("Nobody has the role.")
                         return
+                    
+                    randomRaffle = int(randrange(l))
+                    
                     await message.channel.send([member for member in message.guild.members if role in member.roles][randomRaffle].display_name)
 
             else:

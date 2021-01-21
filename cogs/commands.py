@@ -170,14 +170,17 @@ class CommandsCog(commands.Cog):
         
         l = len([member for member in ctx.guild.members if role in member.roles])
         
-        randomRaffle = int(randrange(l))
+    
         
         if role is None:
-            await ctx.send('There is no such role on this server!')
+            await message.channel.send('There is no such role on this server!')
             return
         if l == 0:
             await message.channel.send("Nobody has the role.")
             return
+        
+        randomRaffle = int(randrange(l))
+        
         await ctx.send([member for member in ctx.guild.members if role in member.roles][randomRaffle].display_name)
 
     @commands.command(name="info")

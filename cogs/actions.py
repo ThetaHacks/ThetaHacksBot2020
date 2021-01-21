@@ -27,7 +27,7 @@ class Action(commands.Cog):
 
         # Build Embed
         embed = discord.Embed(color=0xffc2ff)
-        embed.description = f"**{author.name} kisses {user.name}**"
+        embed.description = f"**{author.display_name} kisses {user.display_name}**"
         embed.set_footer(text="You both look cute")
         embed.set_image(url=kisses)
         await ctx.send(embed=embed)
@@ -43,7 +43,7 @@ class Action(commands.Cog):
 
         # Build Embed
         embed = discord.Embed(color=0xffc2ff)
-        embed.description = f"**{author.name} pats {user.name}**"
+        embed.description = f"**{author.display_name} pats {user.display_name}**"
         embed.set_footer(text="You both look cute")
         embed.set_image(url=pats)
         await ctx.send(embed=embed)     
@@ -58,7 +58,7 @@ class Action(commands.Cog):
 
         # Build Embed
         embed = discord.Embed(color=0xffc2ff)
-        embed.description = f"**{author.name} hugs {user.name}**"
+        embed.description = f"**{author.display_name} hugs {user.display_name}**"
         embed.set_footer(text="You both look cute")
         embed.set_image(url=hugs)
         await ctx.send(embed=embed)
@@ -73,7 +73,7 @@ class Action(commands.Cog):
 
         # Build Embed
         embed = discord.Embed(color=0xffc2ff)
-        embed.description = f"**{author.name} slaps {user.name}**"
+        embed.description = f"**{author.display_name} slaps {user.display_name}**"
         embed.set_footer(text="You both look cute")
         embed.set_image(url=slaps)
         await ctx.send(embed=embed)        
@@ -88,7 +88,7 @@ class Action(commands.Cog):
 
         # Build Embed
         embed = discord.Embed(color=0xffc2ff)
-        embed.description = f"**{author.name} calls {user.name} baka**"
+        embed.description = f"**{author.display_name} calls {user.display_name} baka**"
         embed.set_footer(text="You both look cute")
         embed.set_image(url=bakas)
         await ctx.send(embed=embed)  
@@ -104,7 +104,7 @@ class Action(commands.Cog):
 
         # Build Embed
         embed = discord.Embed(color=0xffc2ff)
-        embed.description = f"**{author.name} tickles {user.name}**"
+        embed.description = f"**{author.display_name} tickles {user.display_name}**"
         embed.set_footer(text="You both look cute")
         embed.set_image(url=tickles)
         await ctx.send(embed=embed)
@@ -119,7 +119,7 @@ class Action(commands.Cog):
 
         # Build Embed
         embed = discord.Embed(color=0xffc2ff)
-        embed.description = f"**{author.name} smugs at {user.name}**"
+        embed.description = f"**{author.display_name} smugs at {user.display_name}**"
         embed.set_footer(text="You both look cute")
         embed.set_image(url=smugs)
         await ctx.send(embed=embed)        
@@ -134,7 +134,7 @@ class Action(commands.Cog):
 
         # Build Embed
         embed = discord.Embed(color=0xffc2ff)
-        embed.description = f"**{author.name} cuddles {user.name}**"
+        embed.description = f"**{author.display_name} cuddles {user.display_name}**"
         embed.set_footer(text="You both look cute")
         embed.set_image(url=cuddles)
         await ctx.send(embed=embed)   
@@ -149,7 +149,7 @@ class Action(commands.Cog):
 
         # Build Embed
         embed = discord.Embed(color=0xffc2ff)
-        embed.description = f"**{author.mention} pokes {user.name}**"
+        embed.description = f"**{author.mention} pokes {user.display_name}**"
         embed.set_footer(text="You both look cute")
         embed.set_image(url=pokes)
         await ctx.send(embed=embed)        
@@ -164,7 +164,7 @@ class Action(commands.Cog):
 
         # Build Embed
         embed = discord.Embed(color=0xffc2ff)
-        embed.description = f"**{author.name} feeds {user.name}**"
+        embed.description = f"**{author.display_name} feeds {user.display_name}**"
         embed.set_footer(text="You both look cute")
         embed.set_image(url=feeds)
         await ctx.send(embed=embed)        
