@@ -5,7 +5,7 @@ import time
 import datetime
 from pytz import timezone
 import pytz
-from random import randint
+from random import randrange
 
 
 
