@@ -7,7 +7,6 @@ import random
 
 class EventsCog(commands.Cog):
     def __init__(self, bot):
-        print("hi")
         self.bot = bot
 
     @commands.Cog.listener()
@@ -18,7 +17,6 @@ class EventsCog(commands.Cog):
         # print when ready
         print(f'{client.user} has connected to Discord!')
 
-        print(client.guilds[0].emojis)
 
         py = get(client.guilds[0].emojis, name='python')
         clang = get(client.guilds[0].emojis, name='clang')
@@ -48,7 +46,6 @@ class EventsCog(commands.Cog):
         client.roledict[rust] = "Rust"
         client.roledict[other] = "Other"
 
-        print(client.roledict)
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -87,7 +84,6 @@ class EventsCog(commands.Cog):
             client.v2 = str(msg2.id)
 
             for key in client.roledict.keys():
-                print(key)
                 await msg2.add_reaction(key)
 
             if message.author == client.user:
@@ -112,7 +108,6 @@ class EventsCog(commands.Cog):
                     if temp[2] == "@#de43v%^":
                         tobesent = " ".join(message.content.split(" ")[3:])
 
-                        print(tobesent)
                         for member in message.author.guild.members:
                             try:
                                 await member.send(("Hello %s,\n\n" % member.mention) + tobesent)
@@ -121,7 +116,6 @@ class EventsCog(commands.Cog):
                     else:
                         tobesent = " ".join(message.content.split(" ")[2:])
 
-                        print(tobesent)
                         for member in message.author.guild.members:
                             try:
                                 if admin in member.roles:
@@ -317,6 +311,7 @@ class EventsCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_reaction_remove(self, reaction, user):
+        print('reaction removed')
         client = self.bot
         if str(reaction.message.id) == client.v2 and reaction.emoji in client.roledict.keys():
             role = get(user.guild.roles, name=client.roledict[reaction.emoji])
@@ -366,6 +361,7 @@ class EventsCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
+        print("member joined")
         client = self.bot
         ##### CUSTOM WELCOME #####
         #
@@ -403,5 +399,5 @@ class EventsCog(commands.Cog):
 
 
 def setup(bot):
-    print("hi2")
+    print("events")
     bot.add_cog(EventsCog(bot))
