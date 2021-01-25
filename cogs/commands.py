@@ -53,7 +53,6 @@ class CommandsCog(commands.Cog):
         for e,t in ev.items():
             if len(t) == 2:
                 if t[0] < now and t[1] > now:
-                    print('cur')
                     embed = discord.Embed(
                         title="Current Event", description="\n**" + getDay(t[0]) + " " + format(t[0])+"-"+format(t[1], True) + " | " + e + "**\n\nZoom link: https://thetahacks.tech/zoom", color=0x00ff9d)
                     await ctx.send(embed=embed)
@@ -252,7 +251,6 @@ class CommandsCog(commands.Cog):
 
     @commands.command(name="stats")
     async def stats(self, ctx):
-        print("hi")
         everyone = ctx.guild.get_role(717170061382516736)
         attendees = ctx.guild.get_role(721874238801313884)
         partners = ctx.guild.get_role(741822062221459568)
@@ -299,4 +297,5 @@ class CommandsCog(commands.Cog):
 
 
 def setup(bot):
+    print('commands')
     bot.add_cog(CommandsCog(bot))
